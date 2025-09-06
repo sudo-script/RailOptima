@@ -1,0 +1,6 @@
+train_id,scheduled_departure,optimized_departure,delay_minutes,priority,Priority Rule,Headway Rule,Notes
+T101,08:20,08:00,-20,1,✅ Pass,✅ Pass,
+T202,08:40,08:10,-30,2,✅ Pass,✅ Pass,
+T303,08:35,08:15,-20,3,✅ Pass,✅ Pass,
+T404,08:50,08:25,-25,2,✅ Pass,✅ Pass,
+T505,09:00,08:30,-30,1,✅ Pass,✅ Pass,
