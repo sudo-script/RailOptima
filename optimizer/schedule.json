@@ -2,36 +2,36 @@
     {
         "train_id": "T101",
         "scheduled_departure": "08:20",
-        "optimized_departure": "08:00",
-        "delay_minutes": -20,
+        "optimized_departure": "08:20",
+        "delay_minutes": 0,
         "priority": 1
     },
     {
         "train_id": "T202",
-        "scheduled_departure": "08:40",
-        "optimized_departure": "08:10",
-        "delay_minutes": -30,
+        "scheduled_departure": "08:20",
+        "optimized_departure": "08:25",
+        "delay_minutes": 5,
         "priority": 2
     },
     {
         "train_id": "T303",
         "scheduled_departure": "08:35",
-        "optimized_departure": "08:15",
-        "delay_minutes": -20,
+        "optimized_departure": "08:35",
+        "delay_minutes": 0,
         "priority": 3
     },
     {
         "train_id": "T404",
         "scheduled_departure": "08:50",
-        "optimized_departure": "08:25",
-        "delay_minutes": -25,
+        "optimized_departure": "08:50",
+        "delay_minutes": 0,
         "priority": 2
     },
     {
         "train_id": "T505",
         "scheduled_departure": "09:00",
-        "optimized_departure": "08:30",
-        "delay_minutes": -30,
+        "optimized_departure": "09:00",
+        "delay_minutes": 0,
         "priority": 1
     }
 ]
