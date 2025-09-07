@@ -1,0 +1,4 @@
+Scenario,Input,Expected Outcome
+Platform Conflict,"Train A and Train B both scheduled to arrive at Station B, Platform 1 at 10:00","System should reassign one train to another platform or delay one train"
+Freight vs Express,"Freight ahead of Express on a single line section","System should prioritize Express and hold Freight"
+Tight Headway,"Train X departs at 10:00, Train Y scheduled at 10:03 on same track","System should delay Train Y to maintain 5 min headway"
