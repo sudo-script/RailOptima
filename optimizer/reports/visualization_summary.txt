@@ -1,0 +1,6 @@
+Visualization Summary Report
+========================================
+Total trains: 5
+Delayed trains: 0
+Average delay: 0.00 minutes
+Maximum delay: 0 minutes
