@@ -1,77 +1,71 @@
 import pandas as pd
-import sys
 import json
-from datetime import datetime, timedelta
+import os
 
-# ============================
-# Load dataset
-# ============================
-if len(sys.argv) > 1:
-    dataset = sys.argv[1]
+print("[DEBUG] Script started")
+
+# --- Paths ---
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+input_file = os.path.join(base_dir, "optimizer", "schedule.json")   # ✅ Fixed path
+output_json = os.path.join(base_dir, "optimizer", "schedule_output.json")
+output_csv = os.path.join(base_dir, "optimizer", "schedule_output.csv")
+
+print("[DEBUG] Paths set")
+
+# --- Load JSON input ---
+with open(input_file, "r") as f:
+    data = json.load(f)
+
+print("[DEBUG] JSON loaded successfully")
+
+# --- Ensure schedule key exists ---
+if isinstance(data, dict) and "schedule" in data:
+    schedule = data["schedule"]
+elif isinstance(data, list):  # if JSON is a list of train dicts
+    schedule = data
 else:
-    dataset = "trains.csv"  # default file
+    raise KeyError("The JSON must contain either a list of trains or a 'schedule' key.")
 
-df = pd.read_csv(dataset)
+# --- Create DataFrame ---
+df = pd.DataFrame(schedule)
+print(f"[DEBUG] DataFrame created with columns: {df.columns.tolist()}")
 
-# ============================
-# Convert times to datetime
-# ============================
-df["arrival"] = pd.to_datetime(df["arrival"], format="%H:%M")
-df["departure"] = pd.to_datetime(df["departure"], format="%H:%M")
+# --- Standardize column names ---
+df = df.rename(columns={
+    "delay_minutes": "delay_min"
+})
 
-# Sort by departure, then by priority
-df = df.sort_values(by=["departure", "priority"], ascending=[True, True])
+# --- Convert times ---
+for col in ["scheduled_departure", "optimized_departure"]:
+    if col in df.columns:
+        df[col] = pd.to_datetime("1900-01-01 " + df[col].astype(str), errors="coerce")
 
-# ============================
-# Optimize Schedule (simple delay handling)
-# ============================
-optimized_times = []
-last_time = None
+print("[DEBUG] Time conversion complete")
 
-for _, row in df.iterrows():
-    sched_time = row["departure"]
+# --- Conflict Resolution (simple placeholder) ---
+conflict_count = 0
+for i in range(1, len(df)):
+    if df.loc[i, "optimized_departure"] <= df.loc[i-1, "optimized_departure"]:
+        df.loc[i, "optimized_departure"] = df.loc[i-1, "optimized_departure"] + pd.Timedelta(minutes=5)
+        df.loc[i, "delay_min"] = (df.loc[i, "optimized_departure"] - df.loc[i, "scheduled_departure"]).seconds // 60
+        conflict_count += 1
+        print(f"[DEBUG] Conflict resolved for {df.loc[i, 'train_id']}")
 
-    if last_time and sched_time <= last_time:
-        # Push forward by 5 min if conflict
-        sched_time = last_time + timedelta(minutes=5)
+print(f"[DEBUG] Conflict resolution complete. Resolved {conflict_count} conflicts.")
 
-    optimized_times.append(sched_time)
-    last_time = sched_time
+# --- Save outputs ---
 
-df["optimized_departure"] = optimized_times
+# Convert datetime columns back to strings for JSON serialization
+for col in ["scheduled_departure", "optimized_departure"]:
+    if col in df.columns:
+        df[col] = df[col].dt.strftime("%H:%M")
 
-# ============================
-# Calculate delays
-# ============================
-df["delay_min"] = (
-    (df["optimized_departure"] - df["departure"]).dt.total_seconds() // 60
-).astype(int)
+with open(output_json, "w") as f:
+    json.dump(df.to_dict(orient="records"), f, indent=4)
+print(f"[OK] Optimized schedule saved at: {output_json}")
 
-# ============================
-# Save outputs
-# ============================
-df_out = df[["train_id", "arrival", "departure", "optimized_departure", "delay_min", "priority"]]
+df.to_csv(output_csv, index=False)
+print(f"[OK] CSV export saved at: {output_csv}")
 
-# Save CSV
-df_out.to_csv("schedule_output.csv", index=False)
+print("[DEBUG] Script finished successfully")
 
-# Save JSON (records style)
-df_out.to_json("schedule_output.json", orient="records", indent=4)
-
-# Save API-style JSON
-with open("schedule_api.json", "w") as f:
-    json.dump({"trains": df_out.to_dict(orient="records")}, f, indent=4, default=str)
-
-# ============================
-# Print Summary
-# ============================
-print("\n=== Optimized Schedule ===")
-for _, row in df_out.iterrows():
-    print(
-        f"{row['train_id']}: Arr {row['arrival'].strftime('%H:%M')}, "
-        f"Sched Dep {row['departure'].strftime('%H:%M')} → "
-        f"Opt Dep {row['optimized_departure'].strftime('%H:%M')}, "
-        f"Delay {row['delay_min']} min, Priority {row['priority']}"
-    )
-
-print("\n✅ Optimized schedule saved to schedule_output.csv, schedule_output.json, and schedule_api.json")
