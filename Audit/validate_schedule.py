@@ -1,8 +1,9 @@
+
 import pandas as pd
 from datetime import datetime
 
 def log_audit(scenario, system_recommendation, human_override, reason, match, notes=""):
-    log_file = "Audit/audit_log_template.csv"
+    log_file = r"C:/Users/Lenovo/OneDrive/Documents/RailOptima/Audit/audit_log_template.csv"
 
     new_entry = {
         "Time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -23,27 +24,51 @@ def log_audit(scenario, system_recommendation, human_override, reason, match, no
     df = pd.concat([df, pd.DataFrame([new_entry])], ignore_index=True)
     df.to_csv(log_file, index=False)
 
-
 # ======================
 # STEP 1: Load optimizer output
 # ======================
-optimizer_df = pd.read_csv("schedule_output.csv")   # <-- Input from Member 2
-baseline_df = pd.read_csv("test_scenarios_day3_manual.csv")  # <-- Your manual baseline
+optimizer_df = pd.read_csv(r"C:/Users/Lenovo/OneDrive/Documents/RailOptima/Audit/schedule_output copy.csv")
+baseline_df = pd.read_csv(r"C:/Users/Lenovo/OneDrive/Documents/RailOptima/Audit/test_scenarios_day3_manual.csv")
 
 # ======================
-# STEP 2: Compare row by row
+# STEP 2: Normalize column names
+# ======================
+# Standardize both DataFrames to 'train_id' and 'departure'
+optimizer_df.rename(columns={
+    "Train_ID": "train_id",
+    "Train": "train_id",
+    "Departure": "optimized_departure",
+    "Dep Time": "optimized_departure"
+}, inplace=True)
+
+baseline_df.rename(columns={
+    "Train_ID": "train_id",
+    "Train": "train_id",
+    "Dep Time": "expected_departure",
+    "Departure": "expected_departure"
+}, inplace=True)
+
+# ======================
+# STEP 3: Compare row by row
 # ======================
 for idx, row in optimizer_df.iterrows():
-    train_id = row["train_id"]
-    system_out = f"{train_id} dep {row['optimized_departure']}"
+    train_id = row.get("train_id")
+    optimized_departure = str(row.get("optimized_departure")).strip()
+
+    if train_id is None or optimized_departure is None:
+        log_audit("Day3", "-", "-", "Missing train_id or departure", "No", "Data missing in optimizer output")
+        continue
+
+    system_out = f"{train_id} dep {optimized_departure}"
 
     # Find matching train in baseline
-    baseline_row = baseline_df[baseline_df["Train_ID"] == train_id]
+    baseline_row = baseline_df[baseline_df["train_id"] == train_id]
 
     if not baseline_row.empty:
-        baseline_out = f"{train_id} dep {baseline_row['Expected_Departure'].values[0]}"
+        expected_departure = str(baseline_row["expected_departure"].values[0]).strip()
+        baseline_out = f"{train_id} dep {expected_departure}"
 
-        if row["optimized_departure"] == baseline_row["Expected_Departure"].values[0]:
+        if optimized_departure == expected_departure:
             log_audit("Day3", system_out, "-", "-", "Yes", "Matches baseline")
         else:
             log_audit("Day3", system_out, baseline_out, "Mismatch found", "No",

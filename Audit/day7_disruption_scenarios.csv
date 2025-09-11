@@ -1,0 +1,3 @@
+Scenario_ID,Disruption_Event,Expected_System_Behavior,Audit_Log_Action
+D1,Train T102 delayed by 12 minutes,"Re-plan schedule, adjust dependent trains (e.g., hold freight, reassign platform)",Check if optimizer updates schedule correctly and log delay handling
+D2,Block A–B closed for 15 minutes,Reroute trains or hold until block opens safely,Check if optimizer prevents unsafe routing and log block handling

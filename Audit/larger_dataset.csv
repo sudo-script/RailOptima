@@ -1,0 +1,11 @@
+train_id,from,to,arrival,departure,priority,type
+T101,A,B,07:50,08:10,1,Express
+T202,A,B,08:00,08:30,2,Freight
+T303,B,C,08:15,08:40,3,Express
+T404,A,C,08:20,08:50,1,Freight
+T505,C,D,08:30,09:00,2,Express
+T606,B,D,08:45,09:10,3,Freight
+T707,A,D,09:00,09:20,1,Express
+T808,C,E,09:10,09:40,2,Freight
+T909,D,E,09:20,09:50,3,Express
+T1010,B,E,09:30,10:00,1,Freight
