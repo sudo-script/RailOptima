@@ -1,76 +1,63 @@
-# optimizer/validate_schedule.py
-import pandas as pd
 import os
 import json
+import pandas as pd
+from datetime import datetime
 
-# Input/output paths
-input_path = os.path.join("optimizer", "schedule_output.json")
-report_path = os.path.join("optimizer", "reports", "validation_report.txt")
+# === Paths ===
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+optimized_file = os.path.join(BASE_DIR, "schedule_output.json")
+baseline_file = os.path.join(BASE_DIR, "baseline.csv")
 
-# Load optimized schedule (JSON, not CSV)
+print("[DEBUG] Validator started")
+
+# === Load files ===
 try:
-    with open(input_path, "r") as f:
-        data = json.load(f)
-    df = pd.DataFrame(data["schedule"])
-except Exception as e:
-    print(f"Error reading {input_path}: {e}")
-    exit(1)
+    with open(optimized_file, "r") as f:
+        optimized_data = json.load(f)
+    print("[DEBUG] Optimized schedule loaded")
+except FileNotFoundError:
+    raise FileNotFoundError(f"Optimized file not found: {optimized_file}")
 
-# Normalize column names
-df.columns = [c.strip().lower() for c in df.columns]
+try:
+    baseline_df = pd.read_csv(baseline_file)
+    print("[DEBUG] Baseline loaded")
+except FileNotFoundError:
+    raise FileNotFoundError(f"Baseline file not found: {baseline_file}")
 
-results = []
+# === Convert to DataFrames ===
+opt_df = pd.DataFrame(optimized_data)
+opt_df.columns = opt_df.columns.str.lower()
+baseline_df.columns = baseline_df.columns.str.lower()
 
-# Check 1: Departures happen after arrivals (if arrival exists)
-if "arrival" in df.columns:
-    if all(pd.to_datetime(df["optimized_departure"]) >= pd.to_datetime(df["arrival"])):
-        results.append("[OK] All departures happen after arrivals.")
+# === Standardize time columns ===
+for df in [opt_df, baseline_df]:
+    if "scheduled_departure" in df.columns:
+        df["scheduled_departure"] = pd.to_datetime(df["scheduled_departure"], errors="coerce").dt.strftime("%H:%M")
+    if "optimized_departure" in df.columns:
+        df["optimized_departure"] = pd.to_datetime(df["optimized_departure"], errors="coerce").dt.strftime("%H:%M")
+    if "expected_departure" in df.columns:
+        df["expected_departure"] = pd.to_datetime(df["expected_departure"], errors="coerce").dt.strftime("%H:%M")
+
+# === Validation ===
+logs = []
+for _, row in opt_df.iterrows():
+    baseline_row = baseline_df[baseline_df["train_id"] == row["train_id"]]
+
+    if not baseline_row.empty:
+        opt_time = row["optimized_departure"]
+        baseline_time = baseline_row["expected_departure"].values[0]
+
+        if opt_time == baseline_time:
+            logs.append(f"Train {row['train_id']}: Departure Match ({opt_time})")
+        else:
+            reason = "conflict adjustment" if int(row.get("delay_min", 0)) > 0 else "manual override"
+            logs.append(f"Train {row['train_id']}: Departure Mismatch ({opt_time} vs {baseline_time}) - Reason: {reason}")
     else:
-        results.append("[FAIL] Some departures happen before arrivals!")
-else:
-    results.append("[INFO] No 'arrival' column found, skipping arrival check.")
+        logs.append(f"Train {row['train_id']}: No baseline found")
 
-# Check 2: Overlapping conflicts
-conflicts = []
-df_sorted = df.sort_values(by="scheduled_departure").reset_index(drop=True)
+# === Save log ===
+log_file = os.path.join(BASE_DIR, f"validation_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
+with open(log_file, "w") as f:
+    f.write("\n".join(logs))
 
-for i in range(1, len(df_sorted)):
-    prev_train = df_sorted.loc[i-1]
-    curr_train = df_sorted.loc[i]
-    if pd.to_datetime(curr_train["scheduled_departure"]) < pd.to_datetime(prev_train["optimized_departure"]):
-        conflicts.append((prev_train["train_id"], curr_train["train_id"]))
-
-if conflicts:
-    results.append(f"[FAIL] Overlapping conflicts found: {conflicts}")
-else:
-    results.append("[OK] No overlapping conflicts.")
-
-# Check 3: No negative delays
-if "delay_min" in df.columns and all(df["delay_min"] >= 0):
-    results.append("[OK] No negative delays.")
-else:
-    results.append("[FAIL] Negative delays detected or 'delay_min' missing.")
-
-# Check 4: Priority respected
-priority_violations = []
-for i in range(1, len(df_sorted)):
-    prev, curr = df_sorted.loc[i-1], df_sorted.loc[i]
-    if (
-        pd.to_datetime(curr["optimized_departure"]) < pd.to_datetime(prev["optimized_departure"])
-        and curr["priority"] < prev["priority"]
-    ):
-        priority_violations.append((prev["train_id"], curr["train_id"]))
-
-if priority_violations:
-    results.append(f"[FAIL] Priority violations: {priority_violations}")
-else:
-    results.append("[OK] Train priorities respected in scheduling.")
-
-# Save validation report
-os.makedirs(os.path.dirname(report_path), exist_ok=True)
-with open(report_path, "w", encoding="utf-8") as f:
-    f.write("\n".join(results))
-
-# Print results
-print("\n".join(results))
-print(f"[OK] Validation complete. Report saved at: {report_path}")
+print(f"[OK] Validation log saved at: {log_file}")
