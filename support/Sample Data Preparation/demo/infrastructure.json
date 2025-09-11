@@ -1,0 +1,80 @@
+[
+  {
+    "id": "I001",
+    "type": "track",
+    "status": "operational",
+    "location": {
+      "lat": 40.7069,
+      "lng": -73.9553
+    },
+    "maintenance_due": null,
+    "capacity": 6,
+    "length_km": 2.51,
+    "condition": "fair"
+  },
+  {
+    "id": "I002",
+    "type": "track",
+    "status": "out_of_service",
+    "location": {
+      "lat": 40.6219,
+      "lng": -74.4379
+    },
+    "maintenance_due": null,
+    "capacity": 4,
+    "length_km": 14.97,
+    "condition": "good"
+  },
+  {
+    "id": "I003",
+    "type": "switch",
+    "status": "out_of_service",
+    "location": {
+      "lat": 40.6219,
+      "lng": -74.4358
+    },
+    "maintenance_due": null,
+    "capacity": null,
+    "length_km": null,
+    "condition": "excellent"
+  },
+  {
+    "id": "I004",
+    "type": "track",
+    "status": "maintenance",
+    "location": {
+      "lat": 40.7765,
+      "lng": -74.1995
+    },
+    "maintenance_due": "2025-10-07T01:00:24.061610",
+    "capacity": 3,
+    "length_km": 39.19,
+    "condition": "fair"
+  },
+  {
+    "id": "I005",
+    "type": "crossing",
+    "status": "out_of_service",
+    "location": {
+      "lat": 40.6329,
+      "lng": -74.4377
+    },
+    "maintenance_due": null,
+    "capacity": null,
+    "length_km": null,
+    "condition": "excellent"
+  },
+  {
+    "id": "I006",
+    "type": "bridge",
+    "status": "operational",
+    "location": {
+      "lat": 40.6951,
+      "lng": -73.9699
+    },
+    "maintenance_due": null,
+    "capacity": null,
+    "length_km": null,
+    "condition": "poor"
+  }
+]

@@ -1,0 +1,9 @@
+id,name,route,departure_time,arrival_time,status,priority,capacity,current_station,delay_minutes,train_type,operator
+T001,Local A,Central Station-Express Terminal,2025-09-11T01:42:23.020959,2025-09-11T04:39:23.020959,departed,3,201,S001,0,Local,Regional Transit
+T002,Commuter D,Downtown Terminal-Express Terminal,2025-09-11T01:30:23.020959,2025-09-11T02:02:23.020959,boarding,2,69,,0,Commuter,Regional Transit
+T003,Regional A,West Hub-Express Terminal,2025-09-11T02:05:23.020959,2025-09-11T03:20:23.020959,arrived,2,229,,11,Regional,Metro Rail
+T004,Freight 3619,West Hub-Central Station,2025-09-11T01:58:23.020959,2025-09-11T04:21:23.020959,departed,3,65,,0,Freight,City Commuter
+T005,Commuter D,Central Station-West Hub,2025-09-11T03:09:23.020959,2025-09-11T05:57:23.020959,boarding,2,258,S001,0,Commuter,RailOptima Express
+T006,Express Delta,Central Station-Express Terminal,2025-09-11T02:06:23.020959,2025-09-11T04:28:23.020959,scheduled,2,54,,0,Express,Freight Lines
+T007,Local A,Express Terminal-Central Station,2025-09-11T04:08:23.020959,2025-09-11T05:02:23.020959,arrived,2,221,,25,Local,City Commuter
+T008,Freight 8208,Express Terminal-West Hub,2025-09-11T03:23:23.020959,2025-09-11T05:14:23.020959,arrived,4,94,,0,Freight,Freight Lines

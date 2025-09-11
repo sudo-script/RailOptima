@@ -1,0 +1,9 @@
+id,type,severity,affected_trains,affected_stations,start_time,estimated_end_time,description,impact_level
+D001,maintenance,medium,"[""T043"", ""T012""]","[""S004"", ""S013""]",2025-09-10T23:39:22.916108,2025-09-11T02:24:22.916108,Scheduled maintenance work at Regional Station,minor
+D002,delay,medium,"[""T033""]","[""S011""]",2025-09-10T22:55:22.916203,2025-09-11T01:15:22.916203,Mechanical issue causing delays at City Center,minor
+D003,weather,high,"[""T042"", ""T022"", ""T019""]","[""S013"", ""S005""]",2025-09-10T22:57:22.916258,2025-09-11T01:53:22.916258,Weather-related delays affecting multiple services,moderate
+D004,cancellation,low,"[""T001"", ""T017""]","[""S014""]",2025-09-10T23:57:22.916307,2025-09-11T02:53:22.916307,Service cancellation due to equipment failure,minor
+D005,weather,high,"[""T039"", ""T022""]","[""S003"", ""S006""]",2025-09-10T23:21:22.916350,2025-09-11T00:05:22.916350,Weather-related delays affecting multiple services,moderate
+D006,weather,medium,"[""T020"", ""T042""]","[""S005""]",2025-09-10T23:18:22.916393,2025-09-11T01:37:22.916393,Weather-related delays affecting multiple services,moderate
+D007,weather,medium,"[""T033"", ""T018"", ""T009""]","[""S004"", ""S015""]",2025-09-11T00:02:22.916440,2025-09-11T00:40:22.916440,Weather-related delays affecting multiple services,moderate
+D008,cancellation,low,"[""T036""]","[""S009"", ""S011""]",2025-09-10T23:51:22.916481,2025-09-11T01:15:22.916481,Service cancellation due to equipment failure,minor

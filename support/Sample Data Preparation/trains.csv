@@ -1,0 +1,26 @@
+id,name,route,departure_time,arrival_time,status,priority,capacity,current_station,delay_minutes,train_type,operator
+T001,Local B,Transit Point-Transit Point,2025-09-11T02:59:22.839891,2025-09-11T05:05:22.839891,arrived,2,210,,0,Local,City Commuter
+T002,Commuter D,Interchange Point-Transit Point,2025-09-11T03:55:22.839891,2025-09-11T05:33:22.839891,scheduled,2,106,,0,Commuter,City Commuter
+T003,Express Beta,Commuter Hub-South Junction,2025-09-11T04:18:22.839891,2025-09-11T05:33:22.839891,scheduled,1,277,,0,Express,RailOptima Express
+T004,Commuter D,Commuter Hub-Express Terminal,2025-09-11T01:44:22.839891,2025-09-11T02:28:22.839891,boarding,2,100,,0,Commuter,Metro Rail
+T005,Freight 3601,South Junction-North Terminal,2025-09-11T02:19:22.839891,2025-09-11T03:29:22.839891,boarding,4,28,,0,Freight,Freight Lines
+T006,Commuter C,West Hub-Express Terminal,2025-09-11T04:19:22.839891,2025-09-11T06:45:22.839891,departed,2,140,,0,Commuter,RailOptima Express
+T007,Commuter D,Express Terminal-Express Terminal,2025-09-11T01:41:22.839891,2025-09-11T04:32:22.839891,arrived,3,86,S013,0,Commuter,Metro Rail
+T008,Regional D,South Junction-Transit Point,2025-09-11T02:39:22.839891,2025-09-11T05:01:22.839891,scheduled,2,55,,4,Regional,RailOptima Express
+T009,High-Speed D,Transit Point-Metro Center,2025-09-11T03:18:22.839891,2025-09-11T03:57:22.839891,departed,3,284,S005,0,High-Speed,Regional Transit
+T010,High-Speed C,South Junction-Transit Point,2025-09-11T02:52:22.839891,2025-09-11T04:18:22.839891,boarding,2,198,,0,High-Speed,Metro Rail
+T011,Express Alpha,Railway Plaza-Railway Plaza,2025-09-11T02:00:22.839891,2025-09-11T02:50:22.839891,departed,2,72,S006,0,Express,Freight Lines
+T012,Regional D,Commuter Hub-Express Terminal,2025-09-11T03:07:22.839891,2025-09-11T04:33:22.839891,arrived,2,72,S008,0,Regional,Freight Lines
+T013,Express Beta,Railway Plaza-West Hub,2025-09-11T03:04:22.839891,2025-09-11T04:09:22.839891,departed,1,281,,0,Express,City Commuter
+T014,High-Speed A,Railway Plaza-Interchange Point,2025-09-11T02:10:22.839891,2025-09-11T03:25:22.839891,boarding,3,83,,0,High-Speed,Regional Transit
+T015,Freight 6763,West Hub-Express Terminal,2025-09-11T04:26:22.839891,2025-09-11T05:06:22.839891,arrived,3,91,S010,0,Freight,Regional Transit
+T016,High-Speed B,Interchange Point-Express Terminal,2025-09-11T02:45:22.839891,2025-09-11T03:57:22.839891,arrived,2,203,,0,High-Speed,Regional Transit
+T017,Regional B,Regional Station-North Terminal,2025-09-11T02:51:22.839891,2025-09-11T05:21:22.839891,scheduled,3,190,,0,Regional,Regional Transit
+T018,High-Speed B,Regional Station-South Junction,2025-09-11T03:21:22.839891,2025-09-11T04:07:22.839891,scheduled,2,222,,0,High-Speed,RailOptima Express
+T019,Express Delta,North Terminal-Commuter Hub,2025-09-11T01:54:22.839891,2025-09-11T03:03:22.839891,departed,2,87,,0,Express,RailOptima Express
+T020,Regional B,Metro Center-Regional Station,2025-09-11T02:58:22.839891,2025-09-11T05:08:22.839891,scheduled,2,201,,0,Regional,City Commuter
+T021,Commuter B,North Terminal-Railway Plaza,2025-09-11T02:26:22.839891,2025-09-11T05:26:22.839891,scheduled,3,229,S015,0,Commuter,Metro Rail
+T022,Freight 7917,Regional Station-Railway Plaza,2025-09-11T03:46:22.839891,2025-09-11T05:39:22.839891,boarding,3,83,,0,Freight,Regional Transit
+T023,Freight 6065,Railway Plaza-North Terminal,2025-09-11T03:29:22.839891,2025-09-11T04:50:22.839891,boarding,3,65,S006,0,Freight,Freight Lines
+T024,Commuter A,Express Terminal-Metro Center,2025-09-11T02:33:22.839891,2025-09-11T05:18:22.839891,arrived,2,215,S001,0,Commuter,Freight Lines
+T025,Freight 5626,Commuter Hub-Transit Point,2025-09-11T02:08:22.839891,2025-09-11T04:04:22.839891,scheduled,3,75,,0,Freight,City Commuter

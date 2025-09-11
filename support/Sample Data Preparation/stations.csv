@@ -1,0 +1,16 @@
+id,name,location,capacity,current_trains,status,station_type,region,platforms
+S001,Express Terminal,"{""lat"": 40.9381, ""lng"": -73.7334}",15,4,operational,minor,Central,2
+S002,Transit Point,"{""lat"": 40.8426, ""lng"": -74.0111}",17,4,operational,minor,Central,5
+S003,Interchange Point,"{""lat"": 40.085, ""lng"": -74.0218}",14,1,operational,terminal,South,4
+S004,Railway Plaza,"{""lat"": 40.2574, ""lng"": -73.9065}",12,2,operational,minor,East,3
+S005,Transit Point,"{""lat"": 40.6093, ""lng"": -74.2538}",14,1,operational,minor,Central,4
+S006,Railway Plaza,"{""lat"": 40.3834, ""lng"": -73.8329}",12,2,operational,major,South,6
+S007,Regional Station,"{""lat"": 40.9978, ""lng"": -74.3498}",10,1,operational,major,Central,6
+S008,Commuter Hub,"{""lat"": 40.78, ""lng"": -73.6134}",19,2,operational,major,West,5
+S009,South Junction,"{""lat"": 40.0405, ""lng"": -73.7729}",15,4,operational,terminal,Central,5
+S010,West Hub,"{""lat"": 40.3936, ""lng"": -73.9313}",14,4,operational,major,South,7
+S011,Regional Station,"{""lat"": 40.2184, ""lng"": -74.0939}",16,0,operational,terminal,Central,2
+S012,Metro Center,"{""lat"": 40.2866, ""lng"": -74.0081}",7,4,operational,major,East,2
+S013,Express Terminal,"{""lat"": 40.5533, ""lng"": -73.8171}",9,5,operational,minor,East,3
+S014,Railway Plaza,"{""lat"": 40.7495, ""lng"": -74.4304}",10,2,operational,minor,East,3
+S015,North Terminal,"{""lat"": 40.1189, ""lng"": -73.7416}",8,5,operational,junction,North,4

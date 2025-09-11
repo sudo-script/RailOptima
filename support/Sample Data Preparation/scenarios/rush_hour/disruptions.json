@@ -1,0 +1,135 @@
+[
+  {
+    "id": "D001",
+    "type": "maintenance",
+    "severity": "medium",
+    "affected_trains": [
+      "T043",
+      "T012"
+    ],
+    "affected_stations": [
+      "S004",
+      "S013"
+    ],
+    "start_time": "2025-09-10T23:39:22.916108",
+    "estimated_end_time": "2025-09-11T02:24:22.916108",
+    "description": "Scheduled maintenance work at Regional Station",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D002",
+    "type": "delay",
+    "severity": "medium",
+    "affected_trains": [
+      "T033"
+    ],
+    "affected_stations": [
+      "S011"
+    ],
+    "start_time": "2025-09-10T22:55:22.916203",
+    "estimated_end_time": "2025-09-11T01:15:22.916203",
+    "description": "Mechanical issue causing delays at City Center",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D003",
+    "type": "weather",
+    "severity": "high",
+    "affected_trains": [
+      "T042",
+      "T022",
+      "T019"
+    ],
+    "affected_stations": [
+      "S013",
+      "S005"
+    ],
+    "start_time": "2025-09-10T22:57:22.916258",
+    "estimated_end_time": "2025-09-11T01:53:22.916258",
+    "description": "Weather-related delays affecting multiple services",
+    "impact_level": "moderate"
+  },
+  {
+    "id": "D004",
+    "type": "cancellation",
+    "severity": "low",
+    "affected_trains": [
+      "T001",
+      "T017"
+    ],
+    "affected_stations": [
+      "S014"
+    ],
+    "start_time": "2025-09-10T23:57:22.916307",
+    "estimated_end_time": "2025-09-11T02:53:22.916307",
+    "description": "Service cancellation due to equipment failure",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D005",
+    "type": "weather",
+    "severity": "high",
+    "affected_trains": [
+      "T039",
+      "T022"
+    ],
+    "affected_stations": [
+      "S003",
+      "S006"
+    ],
+    "start_time": "2025-09-10T23:21:22.916350",
+    "estimated_end_time": "2025-09-11T00:05:22.916350",
+    "description": "Weather-related delays affecting multiple services",
+    "impact_level": "moderate"
+  },
+  {
+    "id": "D006",
+    "type": "weather",
+    "severity": "medium",
+    "affected_trains": [
+      "T020",
+      "T042"
+    ],
+    "affected_stations": [
+      "S005"
+    ],
+    "start_time": "2025-09-10T23:18:22.916393",
+    "estimated_end_time": "2025-09-11T01:37:22.916393",
+    "description": "Weather-related delays affecting multiple services",
+    "impact_level": "moderate"
+  },
+  {
+    "id": "D007",
+    "type": "weather",
+    "severity": "medium",
+    "affected_trains": [
+      "T033",
+      "T018",
+      "T009"
+    ],
+    "affected_stations": [
+      "S004",
+      "S015"
+    ],
+    "start_time": "2025-09-11T00:02:22.916440",
+    "estimated_end_time": "2025-09-11T00:40:22.916440",
+    "description": "Weather-related delays affecting multiple services",
+    "impact_level": "moderate"
+  },
+  {
+    "id": "D008",
+    "type": "cancellation",
+    "severity": "low",
+    "affected_trains": [
+      "T036"
+    ],
+    "affected_stations": [
+      "S009",
+      "S011"
+    ],
+    "start_time": "2025-09-10T23:51:22.916481",
+    "estimated_end_time": "2025-09-11T01:15:22.916481",
+    "description": "Service cancellation due to equipment failure",
+    "impact_level": "minor"
+  }
+]

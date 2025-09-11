@@ -1,0 +1,52 @@
+[
+  {
+    "id": "D001",
+    "type": "delay",
+    "severity": "medium",
+    "affected_trains": [
+      "T002"
+    ],
+    "affected_stations": [
+      "S003"
+    ],
+    "start_time": "2025-09-11T00:11:24.062127",
+    "estimated_end_time": "2025-09-11T03:08:24.062127",
+    "description": "Mechanical issue causing delays at Commuter Hub",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D002",
+    "type": "signal_failure",
+    "severity": "high",
+    "affected_trains": [
+      "T004",
+      "T007",
+      "T001"
+    ],
+    "affected_stations": [
+      "S003",
+      "S005"
+    ],
+    "start_time": "2025-09-11T00:30:24.062224",
+    "estimated_end_time": "2025-09-11T02:54:24.062224",
+    "description": "Signal system failure affecting Commuter Hub",
+    "impact_level": "major"
+  },
+  {
+    "id": "D003",
+    "type": "delay",
+    "severity": "medium",
+    "affected_trains": [
+      "T003",
+      "T008"
+    ],
+    "affected_stations": [
+      "S002",
+      "S003"
+    ],
+    "start_time": "2025-09-11T00:06:24.062277",
+    "estimated_end_time": "2025-09-11T03:03:24.062277",
+    "description": "Mechanical issue causing delays at Regional Station",
+    "impact_level": "minor"
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "id": "D001",
+    "type": "signal_failure",
+    "severity": "critical",
+    "affected_trains": [
+      "T003",
+      "T004",
+      "T008"
+    ],
+    "affected_stations": [
+      "S011"
+    ],
+    "start_time": "2025-09-10T23:57:22.841539",
+    "estimated_end_time": "2025-09-11T02:31:22.841539",
+    "description": "Signal system failure affecting Regional Station",
+    "impact_level": "major"
+  },
+  {
+    "id": "D002",
+    "type": "track_closure",
+    "severity": "critical",
+    "affected_trains": [
+      "T022",
+      "T018"
+    ],
+    "affected_stations": [
+      "S004",
+      "S013"
+    ],
+    "start_time": "2025-09-10T23:37:22.841644",
+    "estimated_end_time": "2025-09-11T02:02:22.841644",
+    "description": "Track closure at Railway Plaza for emergency repairs",
+    "impact_level": "major"
+  },
+  {
+    "id": "D003",
+    "type": "track_closure",
+    "severity": "high",
+    "affected_trains": [
+      "T010",
+      "T019",
+      "T012"
+    ],
+    "affected_stations": [
+      "S005"
+    ],
+    "start_time": "2025-09-11T00:16:22.841688",
+    "estimated_end_time": "2025-09-11T00:59:22.841688",
+    "description": "Track closure at Transit Point for emergency repairs",
+    "impact_level": "major"
+  },
+  {
+    "id": "D004",
+    "type": "delay",
+    "severity": "low",
+    "affected_trains": [
+      "T020"
+    ],
+    "affected_stations": [
+      "S006"
+    ],
+    "start_time": "2025-09-10T22:28:22.841718",
+    "estimated_end_time": "2025-09-11T01:15:22.841718",
+    "description": "Mechanical issue causing delays at Railway Plaza",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D005",
+    "type": "cancellation",
+    "severity": "medium",
+    "affected_trains": [
+      "T007",
+      "T024"
+    ],
+    "affected_stations": [
+      "S012",
+      "S007"
+    ],
+    "start_time": "2025-09-10T23:11:22.841749",
+    "estimated_end_time": "2025-09-10T23:45:22.841749",
+    "description": "Service cancellation due to equipment failure",
+    "impact_level": "minor"
+  }
+]

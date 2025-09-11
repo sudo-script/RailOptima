@@ -1,0 +1,6 @@
+id,type,severity,affected_trains,affected_stations,start_time,estimated_end_time,description,impact_level
+D001,signal_failure,critical,"[""T003"", ""T004"", ""T008""]","[""S011""]",2025-09-10T23:57:22.841539,2025-09-11T02:31:22.841539,Signal system failure affecting Regional Station,major
+D002,track_closure,critical,"[""T022"", ""T018""]","[""S004"", ""S013""]",2025-09-10T23:37:22.841644,2025-09-11T02:02:22.841644,Track closure at Railway Plaza for emergency repairs,major
+D003,track_closure,high,"[""T010"", ""T019"", ""T012""]","[""S005""]",2025-09-11T00:16:22.841688,2025-09-11T00:59:22.841688,Track closure at Transit Point for emergency repairs,major
+D004,delay,low,"[""T020""]","[""S006""]",2025-09-10T22:28:22.841718,2025-09-11T01:15:22.841718,Mechanical issue causing delays at Railway Plaza,minor
+D005,cancellation,medium,"[""T007"", ""T024""]","[""S012"", ""S007""]",2025-09-10T23:11:22.841749,2025-09-10T23:45:22.841749,Service cancellation due to equipment failure,minor

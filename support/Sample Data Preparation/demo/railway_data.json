@@ -1,0 +1,328 @@
+{
+  "stations": [
+    {
+      "id": "S001",
+      "name": "Downtown Terminal",
+      "location": {
+        "lat": 40.3418,
+        "lng": -73.7904
+      },
+      "capacity": 13,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "major",
+      "region": "Central",
+      "platforms": 8
+    },
+    {
+      "id": "S002",
+      "name": "Regional Station",
+      "location": {
+        "lat": 40.7712,
+        "lng": -74.1911
+      },
+      "capacity": 5,
+      "current_trains": 1,
+      "status": "operational",
+      "station_type": "junction",
+      "region": "Central",
+      "platforms": 4
+    },
+    {
+      "id": "S003",
+      "name": "Commuter Hub",
+      "location": {
+        "lat": 40.0168,
+        "lng": -74.4981
+      },
+      "capacity": 17,
+      "current_trains": 5,
+      "status": "operational",
+      "station_type": "terminal",
+      "region": "South",
+      "platforms": 8
+    },
+    {
+      "id": "S004",
+      "name": "Downtown Terminal",
+      "location": {
+        "lat": 40.6233,
+        "lng": -74.4374
+      },
+      "capacity": 19,
+      "current_trains": 1,
+      "status": "operational",
+      "station_type": "junction",
+      "region": "South",
+      "platforms": 3
+    },
+    {
+      "id": "S005",
+      "name": "Metro Center",
+      "location": {
+        "lat": 40.7002,
+        "lng": -73.9651
+      },
+      "capacity": 9,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "major",
+      "region": "North",
+      "platforms": 7
+    }
+  ],
+  "trains": [
+    {
+      "id": "T001",
+      "name": "Express Beta",
+      "route": "Commuter Hub-Downtown Terminal",
+      "departure_time": "2025-09-11T03:06:24.060725",
+      "arrival_time": "2025-09-11T04:26:24.060725",
+      "status": "arrived",
+      "priority": 1,
+      "capacity": 272,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Express",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T002",
+      "name": "Freight 5283",
+      "route": "Metro Center-Commuter Hub",
+      "departure_time": "2025-09-11T02:46:24.060725",
+      "arrival_time": "2025-09-11T04:18:24.060725",
+      "status": "arrived",
+      "priority": 3,
+      "capacity": 21,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Freight",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T003",
+      "name": "Commuter A",
+      "route": "Downtown Terminal-Commuter Hub",
+      "departure_time": "2025-09-11T04:26:24.060725",
+      "arrival_time": "2025-09-11T07:18:24.060725",
+      "status": "departed",
+      "priority": 3,
+      "capacity": 289,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "City Commuter"
+    },
+    {
+      "id": "T004",
+      "name": "High-Speed A",
+      "route": "Regional Station-Downtown Terminal",
+      "departure_time": "2025-09-11T02:45:24.060725",
+      "arrival_time": "2025-09-11T04:04:24.060725",
+      "status": "scheduled",
+      "priority": 3,
+      "capacity": 88,
+      "current_station": "S002",
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T005",
+      "name": "High-Speed C",
+      "route": "Regional Station-Downtown Terminal",
+      "departure_time": "2025-09-11T04:00:24.060725",
+      "arrival_time": "2025-09-11T04:33:24.060725",
+      "status": "scheduled",
+      "priority": 3,
+      "capacity": 225,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T006",
+      "name": "Commuter D",
+      "route": "Commuter Hub-Downtown Terminal",
+      "departure_time": "2025-09-11T04:05:24.060725",
+      "arrival_time": "2025-09-11T06:03:24.060725",
+      "status": "scheduled",
+      "priority": 3,
+      "capacity": 207,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T007",
+      "name": "Express Beta",
+      "route": "Downtown Terminal-Downtown Terminal",
+      "departure_time": "2025-09-11T04:06:24.060725",
+      "arrival_time": "2025-09-11T06:24:24.060725",
+      "status": "scheduled",
+      "priority": 1,
+      "capacity": 65,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Express",
+      "operator": "Metro Rail"
+    },
+    {
+      "id": "T008",
+      "name": "Local A",
+      "route": "Metro Center-Commuter Hub",
+      "departure_time": "2025-09-11T02:11:24.060725",
+      "arrival_time": "2025-09-11T03:45:24.060725",
+      "status": "arrived",
+      "priority": 2,
+      "capacity": 239,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Local",
+      "operator": "City Commuter"
+    }
+  ],
+  "infrastructure": [
+    {
+      "id": "I001",
+      "type": "track",
+      "status": "operational",
+      "location": {
+        "lat": 40.7069,
+        "lng": -73.9553
+      },
+      "maintenance_due": null,
+      "capacity": 6,
+      "length_km": 2.51,
+      "condition": "fair"
+    },
+    {
+      "id": "I002",
+      "type": "track",
+      "status": "out_of_service",
+      "location": {
+        "lat": 40.6219,
+        "lng": -74.4379
+      },
+      "maintenance_due": null,
+      "capacity": 4,
+      "length_km": 14.97,
+      "condition": "good"
+    },
+    {
+      "id": "I003",
+      "type": "switch",
+      "status": "out_of_service",
+      "location": {
+        "lat": 40.6219,
+        "lng": -74.4358
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "excellent"
+    },
+    {
+      "id": "I004",
+      "type": "track",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.7765,
+        "lng": -74.1995
+      },
+      "maintenance_due": "2025-10-07T01:00:24.061610",
+      "capacity": 3,
+      "length_km": 39.19,
+      "condition": "fair"
+    },
+    {
+      "id": "I005",
+      "type": "crossing",
+      "status": "out_of_service",
+      "location": {
+        "lat": 40.6329,
+        "lng": -74.4377
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "excellent"
+    },
+    {
+      "id": "I006",
+      "type": "bridge",
+      "status": "operational",
+      "location": {
+        "lat": 40.6951,
+        "lng": -73.9699
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "poor"
+    }
+  ],
+  "disruptions": [
+    {
+      "id": "D001",
+      "type": "delay",
+      "severity": "medium",
+      "affected_trains": [
+        "T002"
+      ],
+      "affected_stations": [
+        "S003"
+      ],
+      "start_time": "2025-09-11T00:11:24.062127",
+      "estimated_end_time": "2025-09-11T03:08:24.062127",
+      "description": "Mechanical issue causing delays at Commuter Hub",
+      "impact_level": "minor"
+    },
+    {
+      "id": "D002",
+      "type": "signal_failure",
+      "severity": "high",
+      "affected_trains": [
+        "T004",
+        "T007",
+        "T001"
+      ],
+      "affected_stations": [
+        "S003",
+        "S005"
+      ],
+      "start_time": "2025-09-11T00:30:24.062224",
+      "estimated_end_time": "2025-09-11T02:54:24.062224",
+      "description": "Signal system failure affecting Commuter Hub",
+      "impact_level": "major"
+    },
+    {
+      "id": "D003",
+      "type": "delay",
+      "severity": "medium",
+      "affected_trains": [
+        "T003",
+        "T008"
+      ],
+      "affected_stations": [
+        "S002",
+        "S003"
+      ],
+      "start_time": "2025-09-11T00:06:24.062277",
+      "estimated_end_time": "2025-09-11T03:03:24.062277",
+      "description": "Mechanical issue causing delays at Regional Station",
+      "impact_level": "minor"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2025-09-11T01:00:24.160253",
+    "stations_count": 5,
+    "trains_count": 8,
+    "infrastructure_count": 6,
+    "disruptions_count": 3,
+    "generator_version": "1.0.0"
+  }
+}

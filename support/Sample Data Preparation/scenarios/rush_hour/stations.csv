@@ -1,0 +1,21 @@
+id,name,location,capacity,current_trains,status,station_type,region,platforms
+S001,Main Station,"{""lat"": 40.9614, ""lng"": -74.2744}",12,4,operational,terminal,South,5
+S002,West Hub,"{""lat"": 40.2282, ""lng"": -73.6872}",17,0,operational,terminal,Central,4
+S003,Interchange Point,"{""lat"": 40.5331, ""lng"": -74.0292}",12,4,operational,junction,South,8
+S004,Regional Station,"{""lat"": 40.4582, ""lng"": -74.1729}",16,5,operational,minor,Central,4
+S005,East Gate,"{""lat"": 40.7224, ""lng"": -74.0103}",20,5,operational,terminal,North,3
+S006,North Terminal,"{""lat"": 40.5123, ""lng"": -74.2491}",10,4,operational,terminal,East,8
+S007,City Center,"{""lat"": 40.1676, ""lng"": -74.0748}",13,2,operational,terminal,South,3
+S008,Regional Station,"{""lat"": 40.7385, ""lng"": -74.1866}",11,0,operational,junction,East,7
+S009,North Terminal,"{""lat"": 40.1849, ""lng"": -74.333}",5,5,operational,terminal,North,3
+S010,Transit Point,"{""lat"": 40.3787, ""lng"": -73.8862}",5,2,operational,terminal,North,5
+S011,City Center,"{""lat"": 40.3374, ""lng"": -74.4759}",11,0,operational,minor,East,2
+S012,Regional Station,"{""lat"": 40.4953, ""lng"": -73.9505}",7,5,operational,minor,West,4
+S013,Commuter Hub,"{""lat"": 40.0885, ""lng"": -73.9104}",8,0,operational,junction,East,8
+S014,Metro Center,"{""lat"": 40.0456, ""lng"": -74.4203}",14,0,operational,major,West,2
+S015,Metro Center,"{""lat"": 40.2297, ""lng"": -73.679}",18,1,operational,terminal,West,3
+S016,Metro Center,"{""lat"": 40.3799, ""lng"": -73.7509}",16,2,operational,minor,Central,8
+S017,Express Terminal,"{""lat"": 40.8492, ""lng"": -73.8505}",9,3,operational,major,North,6
+S018,Transit Point,"{""lat"": 40.3716, ""lng"": -73.697}",14,3,operational,junction,South,5
+S019,Express Terminal,"{""lat"": 40.0249, ""lng"": -74.4643}",7,2,operational,minor,East,5
+S020,Commuter Hub,"{""lat"": 40.9645, ""lng"": -74.1272}",5,4,operational,junction,South,5

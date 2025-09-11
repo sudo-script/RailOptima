@@ -1,0 +1,16 @@
+id,name,route,departure_time,arrival_time,status,priority,capacity,current_station,delay_minutes,train_type,operator
+T001,Regional A,Interchange Point-South Junction,2025-09-11T02:25:22.972454,2025-09-11T04:27:22.972454,departed,3,263,,0,Regional,City Commuter
+T002,Regional D,Commuter Hub-Main Station,2025-09-11T01:34:22.972454,2025-09-11T03:03:22.972454,departed,2,285,,0,Regional,City Commuter
+T003,High-Speed B,Commuter Hub-Central Station,2025-09-11T02:52:22.972454,2025-09-11T05:41:22.972454,scheduled,3,86,S005,0,High-Speed,Regional Transit
+T004,Freight 3120,Central Station-Express Terminal,2025-09-11T01:34:22.972454,2025-09-11T03:29:22.972454,boarding,4,93,,0,Freight,Metro Rail
+T005,Local D,Main Station-South Junction,2025-09-11T04:23:22.972454,2025-09-11T05:59:22.972454,departed,3,293,,0,Local,RailOptima Express
+T006,Regional D,Main Station-Commuter Hub,2025-09-11T01:39:22.972454,2025-09-11T02:47:22.972454,departed,3,245,S004,0,Regional,Metro Rail
+T007,Commuter C,City Center-Interchange Point,2025-09-11T02:47:22.972454,2025-09-11T03:24:22.972454,boarding,3,50,S009,0,Commuter,Metro Rail
+T008,Express Gamma,Interchange Point-Main Station,2025-09-11T04:10:22.972454,2025-09-11T05:15:22.972454,boarding,2,99,,0,Express,RailOptima Express
+T009,Express Gamma,Express Terminal-Commuter Hub,2025-09-11T01:54:22.972454,2025-09-11T03:12:22.972454,boarding,1,281,,0,Express,City Commuter
+T010,Regional B,Interchange Point-Commuter Hub,2025-09-11T02:57:22.972454,2025-09-11T05:15:22.972454,arrived,2,63,,0,Regional,Freight Lines
+T011,Express Alpha,Commuter Hub-Central Station,2025-09-11T03:25:22.972454,2025-09-11T04:28:22.972454,departed,2,283,,0,Express,Regional Transit
+T012,Regional C,Interchange Point-Central Station,2025-09-11T03:24:22.972454,2025-09-11T04:02:22.972454,departed,2,199,,0,Regional,City Commuter
+T013,Freight 2303,Interchange Point-Express Terminal,2025-09-11T01:37:22.972454,2025-09-11T04:03:22.972454,scheduled,3,27,,0,Freight,City Commuter
+T014,Express Beta,Interchange Point-Main Station,2025-09-11T03:04:22.972454,2025-09-11T04:50:22.972454,scheduled,2,258,,0,Express,RailOptima Express
+T015,Local A,Main Station-City Center,2025-09-11T02:21:22.972454,2025-09-11T04:49:22.972454,boarding,3,154,,0,Local,Freight Lines
