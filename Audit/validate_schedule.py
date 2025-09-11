@@ -92,7 +92,7 @@ def run_audit(optimizer_path, baseline_path, run_name=None):
 # Example usage
 # ======================
 if __name__ == "__main__":
-    optimizer_path = r"Audit/schedule_output.csv"
+    optimizer_path = r"Audit/schedule_output_2.csv"
     baseline_path = r"Audit/test_scenarios_day2.csv"
 
     run_audit(optimizer_path, baseline_path)
