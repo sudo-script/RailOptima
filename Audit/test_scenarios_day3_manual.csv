@@ -1,4 +1,6 @@
-Scenario,Input,Expected Outcome,Manual Solution
-Platform Conflict,"Train A and Train B both scheduled to arrive at Station B, Platform 1 at 10:00","System should reassign one train to another platform or delay one train","Delay Train B by 5 minutes to free the platform"
-Freight vs Express,"Freight ahead of Express on a single line section","System should prioritize Express and hold Freight","Hold Freight at loop station, allow Express to pass first"
-Tight Headway,"Train X departs at 10:00, Train Y scheduled at 10:03 on same track","System should delay Train Y to maintain 5 min headway","Delay Train Y departure to 10:05"
+Train_ID,Expected_Departure
+T101,08:25 
+T202,08:25
+T303,08:40 
+T404,08:50
+T505,09:05 

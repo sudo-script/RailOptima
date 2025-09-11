@@ -1,0 +1,1 @@
+Optimizer accuracy = 60% against your manual baseline.(day 2)

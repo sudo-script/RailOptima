@@ -1,12 +1,18 @@
 
 import pandas as pd
 from datetime import datetime
+import os
 
-def log_audit(scenario, system_recommendation, human_override, reason, match, notes=""):
-    log_file = r"C:/Users/Lenovo/OneDrive/Documents/RailOptima/Audit/audit_log_template.csv"
+# ======================
+# Setup audit log
+# ======================
+LOG_FILE = r"Audit/audit_log_template.csv"
 
+def log_audit(run_name, scenario, system_recommendation, human_override, reason, match, notes=""):
+    """Append a row to the audit log."""
     new_entry = {
         "Time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "Run": run_name,
         "Scenario": scenario,
         "System_Recommendation": system_recommendation,
         "Human_Override": human_override,
@@ -15,63 +21,78 @@ def log_audit(scenario, system_recommendation, human_override, reason, match, no
         "Notes": notes
     }
 
-    try:
-        df = pd.read_csv(log_file)
-    except FileNotFoundError:
-        df = pd.DataFrame(columns=["Time", "Scenario", "System_Recommendation",
-                                   "Human_Override", "Reason", "Match", "Notes"])
+    if os.path.exists(LOG_FILE):
+        df = pd.read_csv(LOG_FILE)
+    else:
+        df = pd.DataFrame(columns=new_entry.keys())
 
     df = pd.concat([df, pd.DataFrame([new_entry])], ignore_index=True)
-    df.to_csv(log_file, index=False)
+    df.to_csv(LOG_FILE, index=False)
 
-# ======================
-# STEP 1: Load optimizer output
-# ======================
-optimizer_df = pd.read_csv(r"C:/Users/Lenovo/OneDrive/Documents/RailOptima/Audit/schedule_output copy.csv")
-baseline_df = pd.read_csv(r"C:/Users/Lenovo/OneDrive/Documents/RailOptima/Audit/test_scenarios_day3_manual.csv")
+def start_audit_run(run_name):
+    """Add a separator row at the start of a new audit run."""
+    sep_row = {
+        "Time": "",
+        "Run": run_name,
+        "Scenario": f"===== START {run_name.upper()} =====",
+        "System_Recommendation": "",
+        "Human_Override": "",
+        "Reason": "",
+        "Match": "",
+        "Notes": ""
+    }
+    blank_row = {col: "" for col in sep_row.keys()}
 
-# ======================
-# STEP 2: Normalize column names
-# ======================
-# Standardize both DataFrames to 'train_id' and 'departure'
-optimizer_df.rename(columns={
-    "Train_ID": "train_id",
-    "Train": "train_id",
-    "Departure": "optimized_departure",
-    "Dep Time": "optimized_departure"
-}, inplace=True)
-
-baseline_df.rename(columns={
-    "Train_ID": "train_id",
-    "Train": "train_id",
-    "Dep Time": "expected_departure",
-    "Departure": "expected_departure"
-}, inplace=True)
-
-# ======================
-# STEP 3: Compare row by row
-# ======================
-for idx, row in optimizer_df.iterrows():
-    train_id = row.get("train_id")
-    optimized_departure = str(row.get("optimized_departure")).strip()
-
-    if train_id is None or optimized_departure is None:
-        log_audit("Day3", "-", "-", "Missing train_id or departure", "No", "Data missing in optimizer output")
-        continue
-
-    system_out = f"{train_id} dep {optimized_departure}"
-
-    # Find matching train in baseline
-    baseline_row = baseline_df[baseline_df["train_id"] == train_id]
-
-    if not baseline_row.empty:
-        expected_departure = str(baseline_row["expected_departure"].values[0]).strip()
-        baseline_out = f"{train_id} dep {expected_departure}"
-
-        if optimized_departure == expected_departure:
-            log_audit("Day3", system_out, "-", "-", "Yes", "Matches baseline")
-        else:
-            log_audit("Day3", system_out, baseline_out, "Mismatch found", "No",
-                      "System gave different time than manual baseline")
+    if os.path.exists(LOG_FILE):
+        df = pd.read_csv(LOG_FILE)
     else:
-        log_audit("Day3", system_out, "-", "-", "No", "Train not found in baseline")
+        df = pd.DataFrame(columns=sep_row.keys())
+
+    df = pd.concat([df, pd.DataFrame([sep_row, blank_row])], ignore_index=True)
+    df.to_csv(LOG_FILE, index=False)
+
+# ======================
+# Generic audit function
+# ======================
+def run_audit(optimizer_path, baseline_path, run_name=None):
+    """Compare optimizer output with baseline and append generic log messages."""
+    optimizer_df = pd.read_csv(optimizer_path)
+    baseline_df = pd.read_csv(baseline_path)
+
+    # Auto-generate run_name from baseline filename if not provided
+    if run_name is None:
+        run_name = os.path.splitext(os.path.basename(baseline_path))[0]
+
+    # Start a new audit run with separator
+    start_audit_run(run_name)
+
+    # Compare optimizer vs baseline
+    for idx, row in optimizer_df.iterrows():
+        train_id = row["train_id"]
+        opt_time = pd.to_datetime(row["optimized_departure"]).strftime("%H:%M")
+        system_out = f"{train_id} dep {opt_time}"
+
+        baseline_row = baseline_df[baseline_df["Train_ID"] == train_id]
+
+        if baseline_row.empty:
+            log_audit(run_name, "Train Not Found", system_out, "-", "Train missing in baseline", "No")
+        else:
+            baseline_time = pd.to_datetime(baseline_row["Expected_Departure"].values[0]).strftime("%H:%M")
+            baseline_out = f"{train_id} dep {baseline_time}"
+
+            if opt_time == baseline_time:
+                log_audit(run_name, "Departure Match", system_out, "-", "Times match", "Yes", "System matches baseline")
+            else:
+                log_audit(run_name, "Departure Mismatch", system_out, baseline_out,
+                          "Times differ", "No", "System time differs from baseline")
+
+    print(f" Audit run '{run_name}' complete. Check {LOG_FILE} for results.")
+
+# ======================
+# Example usage
+# ======================
+if __name__ == "__main__":
+    optimizer_path = r"Audit/schedule_output.csv"
+    baseline_path = r"Audit/test_scenarios_day2.csv"
+
+    run_audit(optimizer_path, baseline_path)

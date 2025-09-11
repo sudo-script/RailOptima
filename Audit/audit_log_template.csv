@@ -1,1 +1,22 @@
-Time,Scenario,System_Recommendation,Human_Override,Reason,match
+Time,Scenario,System_Recommendation,Human_Override,Reason,match,Match,Notes,Run
+,===== START TEST_SCENARIOS_DAY3_MANUAL =====,,,,,,,test_scenarios_day3_manual
+,,,,,,,,
+2025-09-11 11:14:07,Departure Mismatch,T101 dep 08:20,T101 dep 08:25,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+2025-09-11 11:14:07,Departure Mismatch,T303 dep 08:35,T303 dep 08:40,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+2025-09-11 11:14:07,Departure Mismatch,T202 dep 08:40,T202 dep 08:25,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+2025-09-11 11:14:07,Departure Match,T404 dep 08:50,-,Times match,,Yes,System matches baseline,test_scenarios_day3_manual
+2025-09-11 11:14:07,Departure Mismatch,T505 dep 09:00,T505 dep 09:05,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+,===== START TEST_SCENARIOS_DAY3_MANUAL =====,,,,,,,test_scenarios_day3_manual
+,,,,,,,,
+2025-09-11 11:15:31,Departure Mismatch,T101 dep 08:20,T101 dep 08:25,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+2025-09-11 11:15:31,Departure Mismatch,T303 dep 08:35,T303 dep 08:40,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+2025-09-11 11:15:31,Departure Mismatch,T202 dep 08:40,T202 dep 08:25,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+2025-09-11 11:15:31,Departure Match,T404 dep 08:50,-,Times match,,Yes,System matches baseline,test_scenarios_day3_manual
+2025-09-11 11:15:31,Departure Mismatch,T505 dep 09:00,T505 dep 09:05,Times differ,,No,System time differs from baseline,test_scenarios_day3_manual
+,===== START TEST_SCENARIOS_DAY2 =====,,,,,,,test_scenarios_day2
+,,,,,,,,
+2025-09-11 11:16:59,Departure Match,T101 dep 08:20,-,Times match,,Yes,System matches baseline,test_scenarios_day2
+2025-09-11 11:16:59,Departure Match,T303 dep 08:35,-,Times match,,Yes,System matches baseline,test_scenarios_day2
+2025-09-11 11:16:59,Departure Mismatch,T202 dep 08:40,T202 dep 08:25,Times differ,,No,System time differs from baseline,test_scenarios_day2
+2025-09-11 11:16:59,Departure Mismatch,T404 dep 08:50,T404 dep 08:55,Times differ,,No,System time differs from baseline,test_scenarios_day2
+2025-09-11 11:16:59,Departure Match,T505 dep 09:00,-,Times match,,Yes,System matches baseline,test_scenarios_day2
