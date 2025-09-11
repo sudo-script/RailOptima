@@ -1,0 +1,4 @@
+id,type,severity,affected_trains,affected_stations,start_time,estimated_end_time,description,impact_level
+D001,delay,medium,"[""T002""]","[""S003""]",2025-09-11T00:11:24.062127,2025-09-11T03:08:24.062127,Mechanical issue causing delays at Commuter Hub,minor
+D002,signal_failure,high,"[""T004"", ""T007"", ""T001""]","[""S003"", ""S005""]",2025-09-11T00:30:24.062224,2025-09-11T02:54:24.062224,Signal system failure affecting Commuter Hub,major
+D003,delay,medium,"[""T003"", ""T008""]","[""S002"", ""S003""]",2025-09-11T00:06:24.062277,2025-09-11T03:03:24.062277,Mechanical issue causing delays at Regional Station,minor

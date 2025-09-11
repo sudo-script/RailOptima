@@ -1,0 +1,72 @@
+[
+  {
+    "id": "S001",
+    "name": "Central Station",
+    "location": {
+      "lat": 40.3179,
+      "lng": -73.9628
+    },
+    "capacity": 20,
+    "current_trains": 0,
+    "status": "operational",
+    "station_type": "major",
+    "region": "East",
+    "platforms": 8
+  },
+  {
+    "id": "S002",
+    "name": "West Hub",
+    "location": {
+      "lat": 40.3571,
+      "lng": -74.4781
+    },
+    "capacity": 9,
+    "current_trains": 3,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "East",
+    "platforms": 3
+  },
+  {
+    "id": "S003",
+    "name": "Downtown Terminal",
+    "location": {
+      "lat": 40.328,
+      "lng": -73.7778
+    },
+    "capacity": 6,
+    "current_trains": 0,
+    "status": "operational",
+    "station_type": "major",
+    "region": "North",
+    "platforms": 2
+  },
+  {
+    "id": "S004",
+    "name": "Express Terminal",
+    "location": {
+      "lat": 40.3112,
+      "lng": -74.1526
+    },
+    "capacity": 19,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "West",
+    "platforms": 6
+  },
+  {
+    "id": "S005",
+    "name": "West Hub",
+    "location": {
+      "lat": 40.6462,
+      "lng": -73.7768
+    },
+    "capacity": 6,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "terminal",
+    "region": "Central",
+    "platforms": 6
+  }
+]

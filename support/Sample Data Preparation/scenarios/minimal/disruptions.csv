@@ -1,0 +1,3 @@
+id,type,severity,affected_trains,affected_stations,start_time,estimated_end_time,description,impact_level
+D001,delay,low,"[""T008"", ""T003"", ""T005""]","[""S001""]",2025-09-10T23:11:23.022234,2025-09-10T23:59:23.022234,Mechanical issue causing delays at Central Station,minor
+D002,track_closure,critical,"[""T001""]","[""S003"", ""S004""]",2025-09-10T23:33:23.022314,2025-09-11T01:51:23.022314,Track closure at Downtown Terminal for emergency repairs,major

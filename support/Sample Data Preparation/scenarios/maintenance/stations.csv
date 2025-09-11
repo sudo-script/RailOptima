@@ -1,0 +1,11 @@
+id,name,location,capacity,current_trains,status,station_type,region,platforms
+S001,Interchange Point,"{""lat"": 40.8943, ""lng"": -74.4781}",17,2,operational,junction,North,6
+S002,Main Station,"{""lat"": 40.4264, ""lng"": -74.1807}",18,2,operational,major,Central,2
+S003,Central Station,"{""lat"": 40.3937, ""lng"": -73.9245}",20,4,operational,junction,South,8
+S004,Main Station,"{""lat"": 40.2425, ""lng"": -73.5324}",16,5,operational,major,Central,6
+S005,Commuter Hub,"{""lat"": 40.6156, ""lng"": -73.6778}",16,4,operational,junction,West,7
+S006,Interchange Point,"{""lat"": 40.9155, ""lng"": -73.6878}",5,3,operational,junction,East,6
+S007,South Junction,"{""lat"": 40.6503, ""lng"": -73.7215}",11,4,operational,minor,West,8
+S008,Express Terminal,"{""lat"": 40.3341, ""lng"": -74.053}",13,1,operational,minor,West,5
+S009,City Center,"{""lat"": 40.8616, ""lng"": -73.9781}",11,0,operational,major,East,4
+S010,Central Station,"{""lat"": 40.6356, ""lng"": -73.7991}",13,4,operational,minor,East,6

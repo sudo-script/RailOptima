@@ -1,0 +1,11 @@
+id,type,status,location,maintenance_due,capacity,length_km,condition
+I001,bridge,operational,"{""lat"": 40.3251, ""lng"": -73.9704}",,,,poor
+I002,tunnel,out_of_service,"{""lat"": 40.6536, ""lng"": -73.7832}",,,,fair
+I003,platform,maintenance,"{""lat"": 40.3104, ""lng"": -74.1456}",2025-09-30T00:28:23.021703,2,,excellent
+I004,crossing,maintenance,"{""lat"": 40.3043, ""lng"": -74.1618}",2025-09-23T00:28:23.021754,,,poor
+I005,signal,out_of_service,"{""lat"": 40.6406, ""lng"": -73.7677}",,,,fair
+I006,crossing,out_of_service,"{""lat"": 40.3223, ""lng"": -73.967}",,,,good
+I007,platform,maintenance,"{""lat"": 40.3083, ""lng"": -74.1491}",2025-09-12T00:28:23.021806,3,,good
+I008,tunnel,out_of_service,"{""lat"": 40.3111, ""lng"": -73.9627}",,,,excellent
+I009,bridge,out_of_service,"{""lat"": 40.3218, ""lng"": -73.7815}",,,,poor
+I010,platform,maintenance,"{""lat"": 40.3634, ""lng"": -74.4756}",2025-10-11T00:28:23.021855,6,,fair

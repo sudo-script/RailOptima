@@ -1,0 +1,38 @@
+{
+  "export_info": {
+    "timestamp": "2025-09-11 01:00:34",
+    "scenario": "default",
+    "total_records": 65
+  },
+  "summary": {
+    "stations": 15,
+    "trains": 25,
+    "infrastructure": 20,
+    "disruptions": 5
+  },
+  "sample_data": {
+    "sample_train": {
+      "id": "T001",
+      "name": "Local B",
+      "route": "Transit Point-Transit Point",
+      "departure_time": "2025-09-11 02:59:22.839891",
+      "arrival_time": "2025-09-11 05:05:22.839891",
+      "status": "arrived",
+      "priority": 2,
+      "capacity": 210,
+      "current_station": null,
+      "delay_minutes": 0
+    },
+    "sample_station": {
+      "id": "S001",
+      "name": "Express Terminal",
+      "location": {
+        "lat": 40.9381,
+        "lng": -73.7334
+      },
+      "capacity": 15,
+      "current_trains": 4,
+      "status": "operational"
+    }
+  }
+}

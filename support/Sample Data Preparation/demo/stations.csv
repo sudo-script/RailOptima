@@ -1,0 +1,6 @@
+id,name,location,capacity,current_trains,status,station_type,region,platforms
+S001,Downtown Terminal,"{""lat"": 40.3418, ""lng"": -73.7904}",13,4,operational,major,Central,8
+S002,Regional Station,"{""lat"": 40.7712, ""lng"": -74.1911}",5,1,operational,junction,Central,4
+S003,Commuter Hub,"{""lat"": 40.0168, ""lng"": -74.4981}",17,5,operational,terminal,South,8
+S004,Downtown Terminal,"{""lat"": 40.6233, ""lng"": -74.4374}",19,1,operational,junction,South,3
+S005,Metro Center,"{""lat"": 40.7002, ""lng"": -73.9651}",9,4,operational,major,North,7

@@ -1,0 +1,6 @@
+id,name,location,capacity,current_trains,status,station_type,region,platforms
+S001,Central Station,"{""lat"": 40.3179, ""lng"": -73.9628}",20,0,operational,major,East,8
+S002,West Hub,"{""lat"": 40.3571, ""lng"": -74.4781}",9,3,operational,junction,East,3
+S003,Downtown Terminal,"{""lat"": 40.328, ""lng"": -73.7778}",6,0,operational,major,North,2
+S004,Express Terminal,"{""lat"": 40.3112, ""lng"": -74.1526}",19,2,operational,minor,West,6
+S005,West Hub,"{""lat"": 40.6462, ""lng"": -73.7768}",6,4,operational,terminal,Central,6

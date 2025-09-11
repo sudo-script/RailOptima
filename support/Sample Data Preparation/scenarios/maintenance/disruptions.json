@@ -1,0 +1,197 @@
+[
+  {
+    "id": "D001",
+    "type": "delay",
+    "severity": "low",
+    "affected_trains": [
+      "T007"
+    ],
+    "affected_stations": [
+      "S004"
+    ],
+    "start_time": "2025-09-10T23:47:22.974190",
+    "estimated_end_time": "2025-09-11T01:51:22.974190",
+    "description": "Mechanical issue causing delays at Main Station",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D002",
+    "type": "maintenance",
+    "severity": "medium",
+    "affected_trains": [
+      "T001",
+      "T013",
+      "T005"
+    ],
+    "affected_stations": [
+      "S001"
+    ],
+    "start_time": "2025-09-10T23:15:22.974259",
+    "estimated_end_time": "2025-09-11T01:42:22.974259",
+    "description": "Scheduled maintenance work at Interchange Point",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D003",
+    "type": "delay",
+    "severity": "low",
+    "affected_trains": [
+      "T001"
+    ],
+    "affected_stations": [
+      "S010",
+      "S007"
+    ],
+    "start_time": "2025-09-10T22:48:22.974302",
+    "estimated_end_time": "2025-09-11T00:50:22.974302",
+    "description": "Mechanical issue causing delays at South Junction",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D004",
+    "type": "track_closure",
+    "severity": "critical",
+    "affected_trains": [
+      "T012",
+      "T006"
+    ],
+    "affected_stations": [
+      "S010"
+    ],
+    "start_time": "2025-09-10T23:22:22.974340",
+    "estimated_end_time": "2025-09-11T00:11:22.974340",
+    "description": "Track closure at Central Station for emergency repairs",
+    "impact_level": "major"
+  },
+  {
+    "id": "D005",
+    "type": "track_closure",
+    "severity": "high",
+    "affected_trains": [
+      "T009",
+      "T005",
+      "T012"
+    ],
+    "affected_stations": [
+      "S010"
+    ],
+    "start_time": "2025-09-10T23:55:22.974379",
+    "estimated_end_time": "2025-09-11T01:25:22.974379",
+    "description": "Track closure at Central Station for emergency repairs",
+    "impact_level": "major"
+  },
+  {
+    "id": "D006",
+    "type": "cancellation",
+    "severity": "medium",
+    "affected_trains": [
+      "T015"
+    ],
+    "affected_stations": [
+      "S009"
+    ],
+    "start_time": "2025-09-10T23:25:22.974411",
+    "estimated_end_time": "2025-09-11T01:02:22.974411",
+    "description": "Service cancellation due to equipment failure",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D007",
+    "type": "track_closure",
+    "severity": "critical",
+    "affected_trains": [
+      "T010",
+      "T004"
+    ],
+    "affected_stations": [
+      "S004"
+    ],
+    "start_time": "2025-09-11T00:09:22.974450",
+    "estimated_end_time": "2025-09-11T00:39:22.974450",
+    "description": "Track closure at Main Station for emergency repairs",
+    "impact_level": "major"
+  },
+  {
+    "id": "D008",
+    "type": "track_closure",
+    "severity": "critical",
+    "affected_trains": [
+      "T001",
+      "T009"
+    ],
+    "affected_stations": [
+      "S008"
+    ],
+    "start_time": "2025-09-10T22:42:22.974486",
+    "estimated_end_time": "2025-09-11T00:39:22.974486",
+    "description": "Track closure at Express Terminal for emergency repairs",
+    "impact_level": "major"
+  },
+  {
+    "id": "D009",
+    "type": "cancellation",
+    "severity": "medium",
+    "affected_trains": [
+      "T009",
+      "T010"
+    ],
+    "affected_stations": [
+      "S005",
+      "S002"
+    ],
+    "start_time": "2025-09-10T23:41:22.974523",
+    "estimated_end_time": "2025-09-11T01:32:22.974523",
+    "description": "Service cancellation due to equipment failure",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D010",
+    "type": "delay",
+    "severity": "medium",
+    "affected_trains": [
+      "T004",
+      "T003",
+      "T007"
+    ],
+    "affected_stations": [
+      "S003",
+      "S005"
+    ],
+    "start_time": "2025-09-10T22:31:22.974559",
+    "estimated_end_time": "2025-09-11T01:30:22.974559",
+    "description": "Mechanical issue causing delays at Central Station",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D011",
+    "type": "signal_failure",
+    "severity": "high",
+    "affected_trains": [
+      "T014",
+      "T013",
+      "T007"
+    ],
+    "affected_stations": [
+      "S006"
+    ],
+    "start_time": "2025-09-10T23:09:22.974596",
+    "estimated_end_time": "2025-09-10T23:42:22.974596",
+    "description": "Signal system failure affecting Interchange Point",
+    "impact_level": "major"
+  },
+  {
+    "id": "D012",
+    "type": "weather",
+    "severity": "high",
+    "affected_trains": [
+      "T015"
+    ],
+    "affected_stations": [
+      "S004"
+    ],
+    "start_time": "2025-09-10T22:33:22.974631",
+    "estimated_end_time": "2025-09-10T23:31:22.974631",
+    "description": "Weather-related delays affecting multiple services",
+    "impact_level": "moderate"
+  }
+]

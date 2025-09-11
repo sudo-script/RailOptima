@@ -1,0 +1,142 @@
+[
+  {
+    "id": "S001",
+    "name": "Interchange Point",
+    "location": {
+      "lat": 40.8943,
+      "lng": -74.4781
+    },
+    "capacity": 17,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "North",
+    "platforms": 6
+  },
+  {
+    "id": "S002",
+    "name": "Main Station",
+    "location": {
+      "lat": 40.4264,
+      "lng": -74.1807
+    },
+    "capacity": 18,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "major",
+    "region": "Central",
+    "platforms": 2
+  },
+  {
+    "id": "S003",
+    "name": "Central Station",
+    "location": {
+      "lat": 40.3937,
+      "lng": -73.9245
+    },
+    "capacity": 20,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "South",
+    "platforms": 8
+  },
+  {
+    "id": "S004",
+    "name": "Main Station",
+    "location": {
+      "lat": 40.2425,
+      "lng": -73.5324
+    },
+    "capacity": 16,
+    "current_trains": 5,
+    "status": "operational",
+    "station_type": "major",
+    "region": "Central",
+    "platforms": 6
+  },
+  {
+    "id": "S005",
+    "name": "Commuter Hub",
+    "location": {
+      "lat": 40.6156,
+      "lng": -73.6778
+    },
+    "capacity": 16,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "West",
+    "platforms": 7
+  },
+  {
+    "id": "S006",
+    "name": "Interchange Point",
+    "location": {
+      "lat": 40.9155,
+      "lng": -73.6878
+    },
+    "capacity": 5,
+    "current_trains": 3,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "East",
+    "platforms": 6
+  },
+  {
+    "id": "S007",
+    "name": "South Junction",
+    "location": {
+      "lat": 40.6503,
+      "lng": -73.7215
+    },
+    "capacity": 11,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "West",
+    "platforms": 8
+  },
+  {
+    "id": "S008",
+    "name": "Express Terminal",
+    "location": {
+      "lat": 40.3341,
+      "lng": -74.053
+    },
+    "capacity": 13,
+    "current_trains": 1,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "West",
+    "platforms": 5
+  },
+  {
+    "id": "S009",
+    "name": "City Center",
+    "location": {
+      "lat": 40.8616,
+      "lng": -73.9781
+    },
+    "capacity": 11,
+    "current_trains": 0,
+    "status": "operational",
+    "station_type": "major",
+    "region": "East",
+    "platforms": 4
+  },
+  {
+    "id": "S010",
+    "name": "Central Station",
+    "location": {
+      "lat": 40.6356,
+      "lng": -73.7991
+    },
+    "capacity": 13,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "East",
+    "platforms": 6
+  }
+]

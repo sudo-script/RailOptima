@@ -1,0 +1,35 @@
+[
+  {
+    "id": "D001",
+    "type": "delay",
+    "severity": "low",
+    "affected_trains": [
+      "T008",
+      "T003",
+      "T005"
+    ],
+    "affected_stations": [
+      "S001"
+    ],
+    "start_time": "2025-09-10T23:11:23.022234",
+    "estimated_end_time": "2025-09-10T23:59:23.022234",
+    "description": "Mechanical issue causing delays at Central Station",
+    "impact_level": "minor"
+  },
+  {
+    "id": "D002",
+    "type": "track_closure",
+    "severity": "critical",
+    "affected_trains": [
+      "T001"
+    ],
+    "affected_stations": [
+      "S003",
+      "S004"
+    ],
+    "start_time": "2025-09-10T23:33:23.022314",
+    "estimated_end_time": "2025-09-11T01:51:23.022314",
+    "description": "Track closure at Downtown Terminal for emergency repairs",
+    "impact_level": "major"
+  }
+]

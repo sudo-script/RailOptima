@@ -1,0 +1,72 @@
+[
+  {
+    "id": "S001",
+    "name": "Downtown Terminal",
+    "location": {
+      "lat": 40.3418,
+      "lng": -73.7904
+    },
+    "capacity": 13,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "major",
+    "region": "Central",
+    "platforms": 8
+  },
+  {
+    "id": "S002",
+    "name": "Regional Station",
+    "location": {
+      "lat": 40.7712,
+      "lng": -74.1911
+    },
+    "capacity": 5,
+    "current_trains": 1,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "Central",
+    "platforms": 4
+  },
+  {
+    "id": "S003",
+    "name": "Commuter Hub",
+    "location": {
+      "lat": 40.0168,
+      "lng": -74.4981
+    },
+    "capacity": 17,
+    "current_trains": 5,
+    "status": "operational",
+    "station_type": "terminal",
+    "region": "South",
+    "platforms": 8
+  },
+  {
+    "id": "S004",
+    "name": "Downtown Terminal",
+    "location": {
+      "lat": 40.6233,
+      "lng": -74.4374
+    },
+    "capacity": 19,
+    "current_trains": 1,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "South",
+    "platforms": 3
+  },
+  {
+    "id": "S005",
+    "name": "Metro Center",
+    "location": {
+      "lat": 40.7002,
+      "lng": -73.9651
+    },
+    "capacity": 9,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "major",
+    "region": "North",
+    "platforms": 7
+  }
+]

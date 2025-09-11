@@ -1,0 +1,212 @@
+[
+  {
+    "id": "S001",
+    "name": "Express Terminal",
+    "location": {
+      "lat": 40.9381,
+      "lng": -73.7334
+    },
+    "capacity": 15,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "Central",
+    "platforms": 2
+  },
+  {
+    "id": "S002",
+    "name": "Transit Point",
+    "location": {
+      "lat": 40.8426,
+      "lng": -74.0111
+    },
+    "capacity": 17,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "Central",
+    "platforms": 5
+  },
+  {
+    "id": "S003",
+    "name": "Interchange Point",
+    "location": {
+      "lat": 40.085,
+      "lng": -74.0218
+    },
+    "capacity": 14,
+    "current_trains": 1,
+    "status": "operational",
+    "station_type": "terminal",
+    "region": "South",
+    "platforms": 4
+  },
+  {
+    "id": "S004",
+    "name": "Railway Plaza",
+    "location": {
+      "lat": 40.2574,
+      "lng": -73.9065
+    },
+    "capacity": 12,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "East",
+    "platforms": 3
+  },
+  {
+    "id": "S005",
+    "name": "Transit Point",
+    "location": {
+      "lat": 40.6093,
+      "lng": -74.2538
+    },
+    "capacity": 14,
+    "current_trains": 1,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "Central",
+    "platforms": 4
+  },
+  {
+    "id": "S006",
+    "name": "Railway Plaza",
+    "location": {
+      "lat": 40.3834,
+      "lng": -73.8329
+    },
+    "capacity": 12,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "major",
+    "region": "South",
+    "platforms": 6
+  },
+  {
+    "id": "S007",
+    "name": "Regional Station",
+    "location": {
+      "lat": 40.9978,
+      "lng": -74.3498
+    },
+    "capacity": 10,
+    "current_trains": 1,
+    "status": "operational",
+    "station_type": "major",
+    "region": "Central",
+    "platforms": 6
+  },
+  {
+    "id": "S008",
+    "name": "Commuter Hub",
+    "location": {
+      "lat": 40.78,
+      "lng": -73.6134
+    },
+    "capacity": 19,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "major",
+    "region": "West",
+    "platforms": 5
+  },
+  {
+    "id": "S009",
+    "name": "South Junction",
+    "location": {
+      "lat": 40.0405,
+      "lng": -73.7729
+    },
+    "capacity": 15,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "terminal",
+    "region": "Central",
+    "platforms": 5
+  },
+  {
+    "id": "S010",
+    "name": "West Hub",
+    "location": {
+      "lat": 40.3936,
+      "lng": -73.9313
+    },
+    "capacity": 14,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "major",
+    "region": "South",
+    "platforms": 7
+  },
+  {
+    "id": "S011",
+    "name": "Regional Station",
+    "location": {
+      "lat": 40.2184,
+      "lng": -74.0939
+    },
+    "capacity": 16,
+    "current_trains": 0,
+    "status": "operational",
+    "station_type": "terminal",
+    "region": "Central",
+    "platforms": 2
+  },
+  {
+    "id": "S012",
+    "name": "Metro Center",
+    "location": {
+      "lat": 40.2866,
+      "lng": -74.0081
+    },
+    "capacity": 7,
+    "current_trains": 4,
+    "status": "operational",
+    "station_type": "major",
+    "region": "East",
+    "platforms": 2
+  },
+  {
+    "id": "S013",
+    "name": "Express Terminal",
+    "location": {
+      "lat": 40.5533,
+      "lng": -73.8171
+    },
+    "capacity": 9,
+    "current_trains": 5,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "East",
+    "platforms": 3
+  },
+  {
+    "id": "S014",
+    "name": "Railway Plaza",
+    "location": {
+      "lat": 40.7495,
+      "lng": -74.4304
+    },
+    "capacity": 10,
+    "current_trains": 2,
+    "status": "operational",
+    "station_type": "minor",
+    "region": "East",
+    "platforms": 3
+  },
+  {
+    "id": "S015",
+    "name": "North Terminal",
+    "location": {
+      "lat": 40.1189,
+      "lng": -73.7416
+    },
+    "capacity": 8,
+    "current_trains": 5,
+    "status": "operational",
+    "station_type": "junction",
+    "region": "North",
+    "platforms": 4
+  }
+]

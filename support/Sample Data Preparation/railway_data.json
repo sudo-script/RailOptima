@@ -1,0 +1,921 @@
+{
+  "stations": [
+    {
+      "id": "S001",
+      "name": "Express Terminal",
+      "location": {
+        "lat": 40.9381,
+        "lng": -73.7334
+      },
+      "capacity": 15,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "minor",
+      "region": "Central",
+      "platforms": 2
+    },
+    {
+      "id": "S002",
+      "name": "Transit Point",
+      "location": {
+        "lat": 40.8426,
+        "lng": -74.0111
+      },
+      "capacity": 17,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "minor",
+      "region": "Central",
+      "platforms": 5
+    },
+    {
+      "id": "S003",
+      "name": "Interchange Point",
+      "location": {
+        "lat": 40.085,
+        "lng": -74.0218
+      },
+      "capacity": 14,
+      "current_trains": 1,
+      "status": "operational",
+      "station_type": "terminal",
+      "region": "South",
+      "platforms": 4
+    },
+    {
+      "id": "S004",
+      "name": "Railway Plaza",
+      "location": {
+        "lat": 40.2574,
+        "lng": -73.9065
+      },
+      "capacity": 12,
+      "current_trains": 2,
+      "status": "operational",
+      "station_type": "minor",
+      "region": "East",
+      "platforms": 3
+    },
+    {
+      "id": "S005",
+      "name": "Transit Point",
+      "location": {
+        "lat": 40.6093,
+        "lng": -74.2538
+      },
+      "capacity": 14,
+      "current_trains": 1,
+      "status": "operational",
+      "station_type": "minor",
+      "region": "Central",
+      "platforms": 4
+    },
+    {
+      "id": "S006",
+      "name": "Railway Plaza",
+      "location": {
+        "lat": 40.3834,
+        "lng": -73.8329
+      },
+      "capacity": 12,
+      "current_trains": 2,
+      "status": "operational",
+      "station_type": "major",
+      "region": "South",
+      "platforms": 6
+    },
+    {
+      "id": "S007",
+      "name": "Regional Station",
+      "location": {
+        "lat": 40.9978,
+        "lng": -74.3498
+      },
+      "capacity": 10,
+      "current_trains": 1,
+      "status": "operational",
+      "station_type": "major",
+      "region": "Central",
+      "platforms": 6
+    },
+    {
+      "id": "S008",
+      "name": "Commuter Hub",
+      "location": {
+        "lat": 40.78,
+        "lng": -73.6134
+      },
+      "capacity": 19,
+      "current_trains": 2,
+      "status": "operational",
+      "station_type": "major",
+      "region": "West",
+      "platforms": 5
+    },
+    {
+      "id": "S009",
+      "name": "South Junction",
+      "location": {
+        "lat": 40.0405,
+        "lng": -73.7729
+      },
+      "capacity": 15,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "terminal",
+      "region": "Central",
+      "platforms": 5
+    },
+    {
+      "id": "S010",
+      "name": "West Hub",
+      "location": {
+        "lat": 40.3936,
+        "lng": -73.9313
+      },
+      "capacity": 14,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "major",
+      "region": "South",
+      "platforms": 7
+    },
+    {
+      "id": "S011",
+      "name": "Regional Station",
+      "location": {
+        "lat": 40.2184,
+        "lng": -74.0939
+      },
+      "capacity": 16,
+      "current_trains": 0,
+      "status": "operational",
+      "station_type": "terminal",
+      "region": "Central",
+      "platforms": 2
+    },
+    {
+      "id": "S012",
+      "name": "Metro Center",
+      "location": {
+        "lat": 40.2866,
+        "lng": -74.0081
+      },
+      "capacity": 7,
+      "current_trains": 4,
+      "status": "operational",
+      "station_type": "major",
+      "region": "East",
+      "platforms": 2
+    },
+    {
+      "id": "S013",
+      "name": "Express Terminal",
+      "location": {
+        "lat": 40.5533,
+        "lng": -73.8171
+      },
+      "capacity": 9,
+      "current_trains": 5,
+      "status": "operational",
+      "station_type": "minor",
+      "region": "East",
+      "platforms": 3
+    },
+    {
+      "id": "S014",
+      "name": "Railway Plaza",
+      "location": {
+        "lat": 40.7495,
+        "lng": -74.4304
+      },
+      "capacity": 10,
+      "current_trains": 2,
+      "status": "operational",
+      "station_type": "minor",
+      "region": "East",
+      "platforms": 3
+    },
+    {
+      "id": "S015",
+      "name": "North Terminal",
+      "location": {
+        "lat": 40.1189,
+        "lng": -73.7416
+      },
+      "capacity": 8,
+      "current_trains": 5,
+      "status": "operational",
+      "station_type": "junction",
+      "region": "North",
+      "platforms": 4
+    }
+  ],
+  "trains": [
+    {
+      "id": "T001",
+      "name": "Local B",
+      "route": "Transit Point-Transit Point",
+      "departure_time": "2025-09-11T02:59:22.839891",
+      "arrival_time": "2025-09-11T05:05:22.839891",
+      "status": "arrived",
+      "priority": 2,
+      "capacity": 210,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Local",
+      "operator": "City Commuter"
+    },
+    {
+      "id": "T002",
+      "name": "Commuter D",
+      "route": "Interchange Point-Transit Point",
+      "departure_time": "2025-09-11T03:55:22.839891",
+      "arrival_time": "2025-09-11T05:33:22.839891",
+      "status": "scheduled",
+      "priority": 2,
+      "capacity": 106,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "City Commuter"
+    },
+    {
+      "id": "T003",
+      "name": "Express Beta",
+      "route": "Commuter Hub-South Junction",
+      "departure_time": "2025-09-11T04:18:22.839891",
+      "arrival_time": "2025-09-11T05:33:22.839891",
+      "status": "scheduled",
+      "priority": 1,
+      "capacity": 277,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Express",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T004",
+      "name": "Commuter D",
+      "route": "Commuter Hub-Express Terminal",
+      "departure_time": "2025-09-11T01:44:22.839891",
+      "arrival_time": "2025-09-11T02:28:22.839891",
+      "status": "boarding",
+      "priority": 2,
+      "capacity": 100,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "Metro Rail"
+    },
+    {
+      "id": "T005",
+      "name": "Freight 3601",
+      "route": "South Junction-North Terminal",
+      "departure_time": "2025-09-11T02:19:22.839891",
+      "arrival_time": "2025-09-11T03:29:22.839891",
+      "status": "boarding",
+      "priority": 4,
+      "capacity": 28,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Freight",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T006",
+      "name": "Commuter C",
+      "route": "West Hub-Express Terminal",
+      "departure_time": "2025-09-11T04:19:22.839891",
+      "arrival_time": "2025-09-11T06:45:22.839891",
+      "status": "departed",
+      "priority": 2,
+      "capacity": 140,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T007",
+      "name": "Commuter D",
+      "route": "Express Terminal-Express Terminal",
+      "departure_time": "2025-09-11T01:41:22.839891",
+      "arrival_time": "2025-09-11T04:32:22.839891",
+      "status": "arrived",
+      "priority": 3,
+      "capacity": 86,
+      "current_station": "S013",
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "Metro Rail"
+    },
+    {
+      "id": "T008",
+      "name": "Regional D",
+      "route": "South Junction-Transit Point",
+      "departure_time": "2025-09-11T02:39:22.839891",
+      "arrival_time": "2025-09-11T05:01:22.839891",
+      "status": "scheduled",
+      "priority": 2,
+      "capacity": 55,
+      "current_station": null,
+      "delay_minutes": 4,
+      "train_type": "Regional",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T009",
+      "name": "High-Speed D",
+      "route": "Transit Point-Metro Center",
+      "departure_time": "2025-09-11T03:18:22.839891",
+      "arrival_time": "2025-09-11T03:57:22.839891",
+      "status": "departed",
+      "priority": 3,
+      "capacity": 284,
+      "current_station": "S005",
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T010",
+      "name": "High-Speed C",
+      "route": "South Junction-Transit Point",
+      "departure_time": "2025-09-11T02:52:22.839891",
+      "arrival_time": "2025-09-11T04:18:22.839891",
+      "status": "boarding",
+      "priority": 2,
+      "capacity": 198,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "Metro Rail"
+    },
+    {
+      "id": "T011",
+      "name": "Express Alpha",
+      "route": "Railway Plaza-Railway Plaza",
+      "departure_time": "2025-09-11T02:00:22.839891",
+      "arrival_time": "2025-09-11T02:50:22.839891",
+      "status": "departed",
+      "priority": 2,
+      "capacity": 72,
+      "current_station": "S006",
+      "delay_minutes": 0,
+      "train_type": "Express",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T012",
+      "name": "Regional D",
+      "route": "Commuter Hub-Express Terminal",
+      "departure_time": "2025-09-11T03:07:22.839891",
+      "arrival_time": "2025-09-11T04:33:22.839891",
+      "status": "arrived",
+      "priority": 2,
+      "capacity": 72,
+      "current_station": "S008",
+      "delay_minutes": 0,
+      "train_type": "Regional",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T013",
+      "name": "Express Beta",
+      "route": "Railway Plaza-West Hub",
+      "departure_time": "2025-09-11T03:04:22.839891",
+      "arrival_time": "2025-09-11T04:09:22.839891",
+      "status": "departed",
+      "priority": 1,
+      "capacity": 281,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Express",
+      "operator": "City Commuter"
+    },
+    {
+      "id": "T014",
+      "name": "High-Speed A",
+      "route": "Railway Plaza-Interchange Point",
+      "departure_time": "2025-09-11T02:10:22.839891",
+      "arrival_time": "2025-09-11T03:25:22.839891",
+      "status": "boarding",
+      "priority": 3,
+      "capacity": 83,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T015",
+      "name": "Freight 6763",
+      "route": "West Hub-Express Terminal",
+      "departure_time": "2025-09-11T04:26:22.839891",
+      "arrival_time": "2025-09-11T05:06:22.839891",
+      "status": "arrived",
+      "priority": 3,
+      "capacity": 91,
+      "current_station": "S010",
+      "delay_minutes": 0,
+      "train_type": "Freight",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T016",
+      "name": "High-Speed B",
+      "route": "Interchange Point-Express Terminal",
+      "departure_time": "2025-09-11T02:45:22.839891",
+      "arrival_time": "2025-09-11T03:57:22.839891",
+      "status": "arrived",
+      "priority": 2,
+      "capacity": 203,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T017",
+      "name": "Regional B",
+      "route": "Regional Station-North Terminal",
+      "departure_time": "2025-09-11T02:51:22.839891",
+      "arrival_time": "2025-09-11T05:21:22.839891",
+      "status": "scheduled",
+      "priority": 3,
+      "capacity": 190,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Regional",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T018",
+      "name": "High-Speed B",
+      "route": "Regional Station-South Junction",
+      "departure_time": "2025-09-11T03:21:22.839891",
+      "arrival_time": "2025-09-11T04:07:22.839891",
+      "status": "scheduled",
+      "priority": 2,
+      "capacity": 222,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "High-Speed",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T019",
+      "name": "Express Delta",
+      "route": "North Terminal-Commuter Hub",
+      "departure_time": "2025-09-11T01:54:22.839891",
+      "arrival_time": "2025-09-11T03:03:22.839891",
+      "status": "departed",
+      "priority": 2,
+      "capacity": 87,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Express",
+      "operator": "RailOptima Express"
+    },
+    {
+      "id": "T020",
+      "name": "Regional B",
+      "route": "Metro Center-Regional Station",
+      "departure_time": "2025-09-11T02:58:22.839891",
+      "arrival_time": "2025-09-11T05:08:22.839891",
+      "status": "scheduled",
+      "priority": 2,
+      "capacity": 201,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Regional",
+      "operator": "City Commuter"
+    },
+    {
+      "id": "T021",
+      "name": "Commuter B",
+      "route": "North Terminal-Railway Plaza",
+      "departure_time": "2025-09-11T02:26:22.839891",
+      "arrival_time": "2025-09-11T05:26:22.839891",
+      "status": "scheduled",
+      "priority": 3,
+      "capacity": 229,
+      "current_station": "S015",
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "Metro Rail"
+    },
+    {
+      "id": "T022",
+      "name": "Freight 7917",
+      "route": "Regional Station-Railway Plaza",
+      "departure_time": "2025-09-11T03:46:22.839891",
+      "arrival_time": "2025-09-11T05:39:22.839891",
+      "status": "boarding",
+      "priority": 3,
+      "capacity": 83,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Freight",
+      "operator": "Regional Transit"
+    },
+    {
+      "id": "T023",
+      "name": "Freight 6065",
+      "route": "Railway Plaza-North Terminal",
+      "departure_time": "2025-09-11T03:29:22.839891",
+      "arrival_time": "2025-09-11T04:50:22.839891",
+      "status": "boarding",
+      "priority": 3,
+      "capacity": 65,
+      "current_station": "S006",
+      "delay_minutes": 0,
+      "train_type": "Freight",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T024",
+      "name": "Commuter A",
+      "route": "Express Terminal-Metro Center",
+      "departure_time": "2025-09-11T02:33:22.839891",
+      "arrival_time": "2025-09-11T05:18:22.839891",
+      "status": "arrived",
+      "priority": 2,
+      "capacity": 215,
+      "current_station": "S001",
+      "delay_minutes": 0,
+      "train_type": "Commuter",
+      "operator": "Freight Lines"
+    },
+    {
+      "id": "T025",
+      "name": "Freight 5626",
+      "route": "Commuter Hub-Transit Point",
+      "departure_time": "2025-09-11T02:08:22.839891",
+      "arrival_time": "2025-09-11T04:04:22.839891",
+      "status": "scheduled",
+      "priority": 3,
+      "capacity": 75,
+      "current_station": null,
+      "delay_minutes": 0,
+      "train_type": "Freight",
+      "operator": "City Commuter"
+    }
+  ],
+  "infrastructure": [
+    {
+      "id": "I001",
+      "type": "bridge",
+      "status": "out_of_service",
+      "location": {
+        "lat": 40.0461,
+        "lng": -73.7723
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "fair"
+    },
+    {
+      "id": "I002",
+      "type": "platform",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.2109,
+        "lng": -74.0923
+      },
+      "maintenance_due": "2025-09-12T00:28:22.840910",
+      "capacity": 8,
+      "length_km": null,
+      "condition": "good"
+    },
+    {
+      "id": "I003",
+      "type": "signal",
+      "status": "out_of_service",
+      "location": {
+        "lat": 40.7889,
+        "lng": -73.6034
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "poor"
+    },
+    {
+      "id": "I004",
+      "type": "tunnel",
+      "status": "out_of_service",
+      "location": {
+        "lat": 41.0063,
+        "lng": -74.3477
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "excellent"
+    },
+    {
+      "id": "I005",
+      "type": "switch",
+      "status": "operational",
+      "location": {
+        "lat": 40.7542,
+        "lng": -74.4399
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "excellent"
+    },
+    {
+      "id": "I006",
+      "type": "tunnel",
+      "status": "operational",
+      "location": {
+        "lat": 40.3889,
+        "lng": -73.8273
+      },
+      "maintenance_due": "2025-09-12T00:28:22.840993",
+      "capacity": null,
+      "length_km": null,
+      "condition": "poor"
+    },
+    {
+      "id": "I007",
+      "type": "bridge",
+      "status": "operational",
+      "location": {
+        "lat": 40.2767,
+        "lng": -74.0081
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "poor"
+    },
+    {
+      "id": "I008",
+      "type": "signal",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.4014,
+        "lng": -73.9402
+      },
+      "maintenance_due": "2025-09-20T00:28:22.841029",
+      "capacity": null,
+      "length_km": null,
+      "condition": "good"
+    },
+    {
+      "id": "I009",
+      "type": "tunnel",
+      "status": "operational",
+      "location": {
+        "lat": 40.2483,
+        "lng": -73.9071
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "good"
+    },
+    {
+      "id": "I010",
+      "type": "signal",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.9896,
+        "lng": -74.349
+      },
+      "maintenance_due": "2025-10-06T00:28:22.841062",
+      "capacity": null,
+      "length_km": null,
+      "condition": "fair"
+    },
+    {
+      "id": "I011",
+      "type": "crossing",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.3896,
+        "lng": -73.9214
+      },
+      "maintenance_due": "2025-10-06T00:28:22.841081",
+      "capacity": null,
+      "length_km": null,
+      "condition": "fair"
+    },
+    {
+      "id": "I012",
+      "type": "crossing",
+      "status": "operational",
+      "location": {
+        "lat": 40.2576,
+        "lng": -73.8993
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "excellent"
+    },
+    {
+      "id": "I013",
+      "type": "switch",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.391,
+        "lng": -73.9402
+      },
+      "maintenance_due": "2025-10-08T00:28:22.841117",
+      "capacity": null,
+      "length_km": null,
+      "condition": "good"
+    },
+    {
+      "id": "I014",
+      "type": "crossing",
+      "status": "operational",
+      "location": {
+        "lat": 40.5584,
+        "lng": -73.8216
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "poor"
+    },
+    {
+      "id": "I015",
+      "type": "bridge",
+      "status": "operational",
+      "location": {
+        "lat": 40.3975,
+        "lng": -73.9326
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "good"
+    },
+    {
+      "id": "I016",
+      "type": "bridge",
+      "status": "operational",
+      "location": {
+        "lat": 40.2198,
+        "lng": -74.1025
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "poor"
+    },
+    {
+      "id": "I017",
+      "type": "platform",
+      "status": "maintenance",
+      "location": {
+        "lat": 40.0334,
+        "lng": -73.7731
+      },
+      "maintenance_due": "2025-09-19T00:28:22.841171",
+      "capacity": 8,
+      "length_km": null,
+      "condition": "good"
+    },
+    {
+      "id": "I018",
+      "type": "track",
+      "status": "out_of_service",
+      "location": {
+        "lat": 41.0044,
+        "lng": -74.3423
+      },
+      "maintenance_due": null,
+      "capacity": 4,
+      "length_km": 26.12,
+      "condition": "fair"
+    },
+    {
+      "id": "I019",
+      "type": "tunnel",
+      "status": "operational",
+      "location": {
+        "lat": 40.3959,
+        "lng": -73.9305
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "excellent"
+    },
+    {
+      "id": "I020",
+      "type": "tunnel",
+      "status": "operational",
+      "location": {
+        "lat": 40.1285,
+        "lng": -73.7486
+      },
+      "maintenance_due": null,
+      "capacity": null,
+      "length_km": null,
+      "condition": "fair"
+    }
+  ],
+  "disruptions": [
+    {
+      "id": "D001",
+      "type": "signal_failure",
+      "severity": "critical",
+      "affected_trains": [
+        "T003",
+        "T004",
+        "T008"
+      ],
+      "affected_stations": [
+        "S011"
+      ],
+      "start_time": "2025-09-10T23:57:22.841539",
+      "estimated_end_time": "2025-09-11T02:31:22.841539",
+      "description": "Signal system failure affecting Regional Station",
+      "impact_level": "major"
+    },
+    {
+      "id": "D002",
+      "type": "track_closure",
+      "severity": "critical",
+      "affected_trains": [
+        "T022",
+        "T018"
+      ],
+      "affected_stations": [
+        "S004",
+        "S013"
+      ],
+      "start_time": "2025-09-10T23:37:22.841644",
+      "estimated_end_time": "2025-09-11T02:02:22.841644",
+      "description": "Track closure at Railway Plaza for emergency repairs",
+      "impact_level": "major"
+    },
+    {
+      "id": "D003",
+      "type": "track_closure",
+      "severity": "high",
+      "affected_trains": [
+        "T010",
+        "T019",
+        "T012"
+      ],
+      "affected_stations": [
+        "S005"
+      ],
+      "start_time": "2025-09-11T00:16:22.841688",
+      "estimated_end_time": "2025-09-11T00:59:22.841688",
+      "description": "Track closure at Transit Point for emergency repairs",
+      "impact_level": "major"
+    },
+    {
+      "id": "D004",
+      "type": "delay",
+      "severity": "low",
+      "affected_trains": [
+        "T020"
+      ],
+      "affected_stations": [
+        "S006"
+      ],
+      "start_time": "2025-09-10T22:28:22.841718",
+      "estimated_end_time": "2025-09-11T01:15:22.841718",
+      "description": "Mechanical issue causing delays at Railway Plaza",
+      "impact_level": "minor"
+    },
+    {
+      "id": "D005",
+      "type": "cancellation",
+      "severity": "medium",
+      "affected_trains": [
+        "T007",
+        "T024"
+      ],
+      "affected_stations": [
+        "S012",
+        "S007"
+      ],
+      "start_time": "2025-09-10T23:11:22.841749",
+      "estimated_end_time": "2025-09-10T23:45:22.841749",
+      "description": "Service cancellation due to equipment failure",
+      "impact_level": "minor"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2025-09-11T00:28:22.895484",
+    "stations_count": 15,
+    "trains_count": 25,
+    "infrastructure_count": 20,
+    "disruptions_count": 5,
+    "generator_version": "1.0.0"
+  }
+}
