@@ -1,37 +1,704 @@
-[
-    {
-        "train_id": "T101",
-        "scheduled_departure": "08:20",
-        "optimized_departure": "08:20",
-        "delay_min": 0,
-        "priority": 1
-    },
-    {
-        "train_id": "T202",
-        "scheduled_departure": "08:20",
-        "optimized_departure": "08:25",
-        "delay_min": 5,
-        "priority": 2
-    },
-    {
-        "train_id": "T303",
-        "scheduled_departure": "08:35",
-        "optimized_departure": "08:35",
-        "delay_min": 0,
-        "priority": 3
-    },
-    {
-        "train_id": "T404",
-        "scheduled_departure": "08:50",
-        "optimized_departure": "08:50",
-        "delay_min": 0,
-        "priority": 2
-    },
-    {
-        "train_id": "T505",
-        "scheduled_departure": "09:00",
-        "optimized_departure": "09:00",
-        "delay_min": 0,
-        "priority": 1
-    }
-]
+{
+    "schedule": [
+        {
+            "train_id": "T001",
+            "scheduled_departure": "06:00",
+            "priority": 2,
+            "optimized_departure": "06:00",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T002",
+            "scheduled_departure": "06:11",
+            "priority": 2,
+            "optimized_departure": "06:11",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T003",
+            "scheduled_departure": "06:21",
+            "priority": 1,
+            "optimized_departure": "06:21",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T004",
+            "scheduled_departure": "06:36",
+            "priority": 1,
+            "optimized_departure": "06:36",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T005",
+            "scheduled_departure": "06:42",
+            "priority": 3,
+            "optimized_departure": "06:42",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T006",
+            "scheduled_departure": "06:53",
+            "priority": 2,
+            "optimized_departure": "06:53",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T007",
+            "scheduled_departure": "07:01",
+            "priority": 2,
+            "optimized_departure": "07:01",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T008",
+            "scheduled_departure": "07:15",
+            "priority": 3,
+            "optimized_departure": "07:15",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T009",
+            "scheduled_departure": "07:28",
+            "priority": 2,
+            "optimized_departure": "07:28",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T010",
+            "scheduled_departure": "07:43",
+            "priority": 3,
+            "optimized_departure": "07:43",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T011",
+            "scheduled_departure": "07:49",
+            "priority": 3,
+            "optimized_departure": "07:49",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T012",
+            "scheduled_departure": "07:57",
+            "priority": 2,
+            "optimized_departure": "07:57",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T013",
+            "scheduled_departure": "08:10",
+            "priority": 3,
+            "optimized_departure": "08:10",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T014",
+            "scheduled_departure": "08:19",
+            "priority": 2,
+            "optimized_departure": "08:19",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T015",
+            "scheduled_departure": "08:34",
+            "priority": 2,
+            "optimized_departure": "08:34",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T016",
+            "scheduled_departure": "08:47",
+            "priority": 3,
+            "optimized_departure": "08:47",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T017",
+            "scheduled_departure": "08:58",
+            "priority": 3,
+            "optimized_departure": "08:58",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T018",
+            "scheduled_departure": "09:09",
+            "priority": 1,
+            "optimized_departure": "09:09",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T019",
+            "scheduled_departure": "09:17",
+            "priority": 2,
+            "optimized_departure": "09:17",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T020",
+            "scheduled_departure": "09:27",
+            "priority": 2,
+            "optimized_departure": "09:27",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T021",
+            "scheduled_departure": "09:34",
+            "priority": 1,
+            "optimized_departure": "09:34",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T022",
+            "scheduled_departure": "09:47",
+            "priority": 2,
+            "optimized_departure": "09:47",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T023",
+            "scheduled_departure": "10:00",
+            "priority": 2,
+            "optimized_departure": "10:00",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T024",
+            "scheduled_departure": "10:10",
+            "priority": 2,
+            "optimized_departure": "10:10",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T025",
+            "scheduled_departure": "10:15",
+            "priority": 2,
+            "optimized_departure": "10:15",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T026",
+            "scheduled_departure": "10:20",
+            "priority": 2,
+            "optimized_departure": "10:20",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T027",
+            "scheduled_departure": "10:32",
+            "priority": 3,
+            "optimized_departure": "10:32",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T028",
+            "scheduled_departure": "10:46",
+            "priority": 2,
+            "optimized_departure": "10:46",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T029",
+            "scheduled_departure": "10:56",
+            "priority": 2,
+            "optimized_departure": "10:56",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T030",
+            "scheduled_departure": "11:08",
+            "priority": 1,
+            "optimized_departure": "11:08",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T031",
+            "scheduled_departure": "11:13",
+            "priority": 1,
+            "optimized_departure": "11:13",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T032",
+            "scheduled_departure": "11:21",
+            "priority": 1,
+            "optimized_departure": "11:21",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T033",
+            "scheduled_departure": "11:28",
+            "priority": 3,
+            "optimized_departure": "11:28",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T034",
+            "scheduled_departure": "11:38",
+            "priority": 1,
+            "optimized_departure": "11:38",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T035",
+            "scheduled_departure": "11:46",
+            "priority": 1,
+            "optimized_departure": "11:46",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T036",
+            "scheduled_departure": "11:56",
+            "priority": 3,
+            "optimized_departure": "11:56",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T037",
+            "scheduled_departure": "12:11",
+            "priority": 3,
+            "optimized_departure": "12:11",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T038",
+            "scheduled_departure": "12:26",
+            "priority": 3,
+            "optimized_departure": "12:26",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T039",
+            "scheduled_departure": "12:31",
+            "priority": 3,
+            "optimized_departure": "12:31",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T040",
+            "scheduled_departure": "12:42",
+            "priority": 2,
+            "optimized_departure": "12:42",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T041",
+            "scheduled_departure": "12:51",
+            "priority": 2,
+            "optimized_departure": "12:51",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T042",
+            "scheduled_departure": "13:00",
+            "priority": 1,
+            "optimized_departure": "13:00",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T043",
+            "scheduled_departure": "13:08",
+            "priority": 3,
+            "optimized_departure": "13:08",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T044",
+            "scheduled_departure": "13:20",
+            "priority": 2,
+            "optimized_departure": "13:20",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T045",
+            "scheduled_departure": "13:28",
+            "priority": 2,
+            "optimized_departure": "13:28",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T046",
+            "scheduled_departure": "13:35",
+            "priority": 1,
+            "optimized_departure": "13:35",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T047",
+            "scheduled_departure": "13:40",
+            "priority": 2,
+            "optimized_departure": "13:40",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T048",
+            "scheduled_departure": "13:55",
+            "priority": 2,
+            "optimized_departure": "13:55",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T049",
+            "scheduled_departure": "14:01",
+            "priority": 3,
+            "optimized_departure": "14:01",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T050",
+            "scheduled_departure": "14:15",
+            "priority": 2,
+            "optimized_departure": "14:15",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T051",
+            "scheduled_departure": "14:23",
+            "priority": 2,
+            "optimized_departure": "14:23",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T052",
+            "scheduled_departure": "14:30",
+            "priority": 3,
+            "optimized_departure": "14:30",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T053",
+            "scheduled_departure": "14:42",
+            "priority": 2,
+            "optimized_departure": "14:42",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T054",
+            "scheduled_departure": "14:57",
+            "priority": 3,
+            "optimized_departure": "14:57",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T055",
+            "scheduled_departure": "15:11",
+            "priority": 2,
+            "optimized_departure": "15:11",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T056",
+            "scheduled_departure": "15:25",
+            "priority": 2,
+            "optimized_departure": "15:25",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T057",
+            "scheduled_departure": "15:38",
+            "priority": 2,
+            "optimized_departure": "15:38",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T058",
+            "scheduled_departure": "15:47",
+            "priority": 2,
+            "optimized_departure": "15:47",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T059",
+            "scheduled_departure": "15:58",
+            "priority": 3,
+            "optimized_departure": "15:58",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T060",
+            "scheduled_departure": "16:04",
+            "priority": 3,
+            "optimized_departure": "16:04",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T061",
+            "scheduled_departure": "16:12",
+            "priority": 3,
+            "optimized_departure": "16:12",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T062",
+            "scheduled_departure": "16:19",
+            "priority": 3,
+            "optimized_departure": "16:19",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T063",
+            "scheduled_departure": "16:27",
+            "priority": 1,
+            "optimized_departure": "16:27",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T064",
+            "scheduled_departure": "16:39",
+            "priority": 2,
+            "optimized_departure": "16:39",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T065",
+            "scheduled_departure": "16:51",
+            "priority": 3,
+            "optimized_departure": "16:51",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T066",
+            "scheduled_departure": "16:56",
+            "priority": 2,
+            "optimized_departure": "16:56",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T067",
+            "scheduled_departure": "17:11",
+            "priority": 2,
+            "optimized_departure": "17:11",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T068",
+            "scheduled_departure": "17:18",
+            "priority": 3,
+            "optimized_departure": "17:18",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T069",
+            "scheduled_departure": "17:31",
+            "priority": 3,
+            "optimized_departure": "17:31",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T070",
+            "scheduled_departure": "17:46",
+            "priority": 2,
+            "optimized_departure": "17:46",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T071",
+            "scheduled_departure": "17:51",
+            "priority": 1,
+            "optimized_departure": "17:51",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T072",
+            "scheduled_departure": "18:02",
+            "priority": 2,
+            "optimized_departure": "18:02",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T073",
+            "scheduled_departure": "18:12",
+            "priority": 2,
+            "optimized_departure": "18:12",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T074",
+            "scheduled_departure": "18:20",
+            "priority": 3,
+            "optimized_departure": "18:20",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T075",
+            "scheduled_departure": "18:28",
+            "priority": 2,
+            "optimized_departure": "18:28",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T076",
+            "scheduled_departure": "18:35",
+            "priority": 3,
+            "optimized_departure": "18:35",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T077",
+            "scheduled_departure": "18:50",
+            "priority": 3,
+            "optimized_departure": "18:50",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T078",
+            "scheduled_departure": "18:55",
+            "priority": 2,
+            "optimized_departure": "18:55",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T079",
+            "scheduled_departure": "19:09",
+            "priority": 2,
+            "optimized_departure": "19:09",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T080",
+            "scheduled_departure": "19:22",
+            "priority": 2,
+            "optimized_departure": "19:22",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T081",
+            "scheduled_departure": "19:31",
+            "priority": 2,
+            "optimized_departure": "19:31",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T082",
+            "scheduled_departure": "19:37",
+            "priority": 3,
+            "optimized_departure": "19:37",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T083",
+            "scheduled_departure": "19:44",
+            "priority": 2,
+            "optimized_departure": "19:44",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T084",
+            "scheduled_departure": "19:50",
+            "priority": 2,
+            "optimized_departure": "19:50",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T085",
+            "scheduled_departure": "19:59",
+            "priority": 2,
+            "optimized_departure": "19:59",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T086",
+            "scheduled_departure": "20:12",
+            "priority": 2,
+            "optimized_departure": "20:12",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T087",
+            "scheduled_departure": "20:19",
+            "priority": 3,
+            "optimized_departure": "20:19",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T088",
+            "scheduled_departure": "20:27",
+            "priority": 1,
+            "optimized_departure": "20:27",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T089",
+            "scheduled_departure": "20:40",
+            "priority": 1,
+            "optimized_departure": "20:40",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T090",
+            "scheduled_departure": "20:45",
+            "priority": 2,
+            "optimized_departure": "20:45",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T091",
+            "scheduled_departure": "20:51",
+            "priority": 2,
+            "optimized_departure": "20:51",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T092",
+            "scheduled_departure": "21:04",
+            "priority": 3,
+            "optimized_departure": "21:04",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T093",
+            "scheduled_departure": "21:09",
+            "priority": 2,
+            "optimized_departure": "21:09",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T094",
+            "scheduled_departure": "21:14",
+            "priority": 2,
+            "optimized_departure": "21:14",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T095",
+            "scheduled_departure": "21:23",
+            "priority": 1,
+            "optimized_departure": "21:23",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T096",
+            "scheduled_departure": "21:35",
+            "priority": 1,
+            "optimized_departure": "21:35",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T097",
+            "scheduled_departure": "21:42",
+            "priority": 2,
+            "optimized_departure": "21:42",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T098",
+            "scheduled_departure": "21:48",
+            "priority": 2,
+            "optimized_departure": "21:48",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T099",
+            "scheduled_departure": "21:55",
+            "priority": 2,
+            "optimized_departure": "21:55",
+            "delay_min": 0
+        },
+        {
+            "train_id": "T100",
+            "scheduled_departure": "22:02",
+            "priority": 3,
+            "optimized_departure": "22:02",
+            "delay_min": 0
+        }
+    ]
+}

@@ -1,1 +1,28 @@
+----------------FOR SMALL DATA SET---------------------------
 Optimizer accuracy = 60% against your manual baseline.(day 2)
+second test of optimizer, accuracy=80% (increased by 20 percent)
+test 2
+ Audit run 'human_decision_schedule' complete.
+Total trains: 5
+Matches: 5
+Optimizer Accuracy = 100.00%
+Check Audit/audit_log_template.csv for full audit details.
+--------------------change in optimizer---------------------------
+ Audit run 'human_decision_schedule' complete.
+Total trains: 5
+Matches: 4
+Optimizer Accuracy = 80.00%
+Check Audit/audit_log_template.csv for full audit details.
+-----------after enhancing the accuracy of optimizer(small data)--------------
+ Audit run 'human_decision_schedule' complete.
+Total trains: 5
+Matches: 5
+Optimizer Accuracy = 100.00%
+Check Audit/audit_log_template.csv for full audit details.
+--------------------FINAL---------------------------------
+For small data SET
+[DEBUG] Loading human decisions: Audit/TestData/human_decision_schedule.csv
+[RESULT] Agreement within �5 min: 100.00%
+For big data set
+[DEBUG] Loading human decisions: Audit/TestData/human_decision_schedule.csv
+[RESULT] Agreement within �5 min: 100.00%

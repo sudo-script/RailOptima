@@ -2,73 +2,81 @@ import os
 import json
 import pandas as pd
 
-# === Paths ===
+# =========================
+# File paths
+# =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-input_file = os.path.join(BASE_DIR, "schedule.json")          # input JSON
-baseline_file = os.path.join(BASE_DIR, "baseline.csv")        # baseline reference
-output_json = os.path.join(BASE_DIR, "schedule_output.json")  # output JSON
-output_csv = os.path.join(BASE_DIR, "schedule_output.csv")    # output CSV
+input_file  = os.path.join(BASE_DIR, "optimizer_input_schedule copy.json")
+output_json = os.path.join(BASE_DIR, "schedule_output.json")
+output_csv  = os.path.join(BASE_DIR, "schedule_output.csv")
 
-print("[DEBUG] Script started")
-print("[DEBUG] Paths set")
+print("[DEBUG] Optimizer started")
 
-# === Load input JSON ===
-try:
-    with open(input_file, "r") as f:
-        schedule_data = json.load(f)
-    print("[DEBUG] JSON loaded successfully")
-except FileNotFoundError:
-    raise FileNotFoundError(f"Input file not found at {input_file}")
+# =========================
+# Load input JSON
+# =========================
+with open(input_file, "r") as f:
+    schedule_data = json.load(f)
 
-# === Convert to DataFrame ===
 if isinstance(schedule_data, dict) and "schedule" in schedule_data:
     df = pd.DataFrame(schedule_data["schedule"])
 elif isinstance(schedule_data, list):
     df = pd.DataFrame(schedule_data)
 else:
-    raise KeyError("The JSON file must contain either a 'schedule' key or a list of schedules.")
+    raise KeyError("JSON must contain 'schedule' key or be a list of schedules")
 
-# === Standardize column names ===
 df.columns = df.columns.str.lower()
-print(f"[DEBUG] DataFrame created with columns: {df.columns.tolist()}")
 
-# === Standardize time columns ===
-time_cols = ["scheduled_departure", "optimized_departure"]
-for col in time_cols:
-    if col in df.columns:
-        df[col] = pd.to_datetime(df[col], errors="coerce").dt.strftime("%H:%M")
+# Convert times to datetime
+df["scheduled_departure"] = pd.to_datetime(df["scheduled_departure"], format="%H:%M", errors="coerce")
+df["optimized_departure"] = df["scheduled_departure"].copy()
+df["delay_min"] = 0
 
-print("[DEBUG] Time conversion complete")
+BASE_BUFFER = 3
+PRIORITY_BUFFER_EXTRA = 2
+MAX_DELAY = 30
 
-# === Load Baseline for Accuracy Preservation ===
-try:
-    baseline_df = pd.read_csv(baseline_file)
-    baseline_df.columns = baseline_df.columns.str.lower()
-    print("[DEBUG] Baseline loaded successfully")
-except FileNotFoundError:
-    print("[WARNING] No baseline.csv found, skipping baseline preservation.")
-    baseline_df = None
+df = df.sort_values("scheduled_departure").reset_index(drop=True)
 
-# === Preserve baseline for high-priority trains ===
-if baseline_df is not None:
-    for i, row in df.iterrows():
-        baseline_row = baseline_df[baseline_df["train_id"] == row["train_id"]]
-        if not baseline_row.empty and row["priority"] == 1:
-            baseline_time = pd.to_datetime(baseline_row["expected_departure"].values[0], errors="coerce")
-            df.loc[i, "optimized_departure"] = baseline_time.strftime("%H:%M")
-            df.loc[i, "delay_min"] = 0
+# Conflict resolution
+for i in range(1, len(df)):
+    prev_time = df.loc[i-1, "optimized_departure"]
+    curr_time = df.loc[i, "optimized_departure"]
+    priority_gap = max(0, df.loc[i-1, "priority"] - df.loc[i, "priority"])
+    dynamic_buffer = BASE_BUFFER + PRIORITY_BUFFER_EXTRA * priority_gap
 
-print("[DEBUG] Conflict resolution & baseline preservation complete")
+    if curr_time <= prev_time + pd.Timedelta(minutes=dynamic_buffer):
+        if df.loc[i, "priority"] < df.loc[i-1, "priority"]:
+            new_time = prev_time + pd.Timedelta(minutes=dynamic_buffer)
+            delay = (new_time - df.loc[i, "scheduled_departure"]).total_seconds() / 60
+            if delay <= MAX_DELAY:
+                df.loc[i, "optimized_departure"] = new_time
+                df.loc[i, "delay_min"] = max(0, int(round(delay)))
+            else:
+                shift_prev = curr_time - pd.Timedelta(minutes=dynamic_buffer)
+                df.loc[i-1, "optimized_departure"] = shift_prev
+        else:
+            for j in range(i-1, -1, -1):
+                if df.loc[j, "priority"] < df.loc[i, "priority"]:
+                    new_prev = curr_time - pd.Timedelta(minutes=dynamic_buffer)
+                    df.loc[j, "optimized_departure"] = new_prev
+                    delay = (new_prev - df.loc[j, "scheduled_departure"]).total_seconds() / 60
+                    df.loc[j, "delay_min"] = max(0, int(round(delay)))
+                    break
+            else:
+                new_time = prev_time + pd.Timedelta(minutes=dynamic_buffer)
+                delay = (new_time - df.loc[i, "scheduled_departure"]).total_seconds() / 60
+                df.loc[i, "optimized_departure"] = new_time
+                df.loc[i, "delay_min"] = max(0, int(round(delay)))
 
-# === Save outputs ===
-# Convert Timestamp -> str
-df = df.astype(str)
+df["scheduled_departure"] = df["scheduled_departure"].dt.strftime("%H:%M")
+df["optimized_departure"] = df["optimized_departure"].dt.strftime("%H:%M")
 
 with open(output_json, "w") as f:
-    json.dump(df.to_dict(orient="records"), f, indent=4)
+    json.dump({"schedule": df.to_dict(orient="records")}, f, indent=4)
 
 df.to_csv(output_csv, index=False)
 
 print(f"[OK] Optimized schedule saved at: {output_json}")
 print(f"[OK] CSV export saved at: {output_csv}")
-print("[DEBUG] Script finished successfully")
+print("[DEBUG] Optimizer finished successfully")
