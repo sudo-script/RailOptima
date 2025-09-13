@@ -6,7 +6,7 @@ import pandas as pd
 # File paths
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-input_file  = os.path.join(BASE_DIR, "optimizer_input_schedule copy.json")
+input_file  = os.path.join(BASE_DIR, "schedule.json")
 output_json = os.path.join(BASE_DIR, "schedule_output.json")
 output_csv  = os.path.join(BASE_DIR, "schedule_output.csv")
 
