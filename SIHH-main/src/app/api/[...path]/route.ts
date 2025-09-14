@@ -3,95 +3,172 @@ import { NextRequest, NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const json = (data: any, status = 200) => NextResponse.json(data, { status });
-const methodNotAllowed = () => json({ error: 'Method Not Allowed' }, 405);
+const j = (data: any, status = 200) =>
+  new NextResponse(JSON.stringify(data), {
+    status,
+    headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
+  });
 
-// ---- DATA SHAPES your UI expects ----
-// /api/trains            -> Train[]                      (array)
-// /api/trains/count      -> { total_active_trains: n }   (object)
-// /api/stations          -> string[]                     (array)
-// /api/disruptions       -> Disruption[]                 (array)
-// /api/kpi               -> { ... }                      (object)
-// /api/alerts            -> Alert[]                      (array)
-// /api/optimize (POST)   -> { ... }                      (object)
-// /api/health            -> { ok: true }                 (object)
+const asArray = (v: any) => (Array.isArray(v) ? v : v == null ? [] : [v]); // coerce to array
 
-function root() { return json({ ok: true, service: 'railoptima' }); }
-function health() { return json({ ok: true }); }
+// ---------- DATA your UI likely maps over ----------
+function stations() {
+  // must be string[]
+  return j(['Station A', 'Station B', 'Station C']);
+}
 
-// arrays
-function stations() { return json(['Station A', 'Station B', 'Station C']); }
 function trainsList() {
-  return json([
-    { id:'T1', name:'Train 1', route:'A-B', departure_time:'09:00', arrival_time:'09:30', capacity:300, delay_minutes:0 },
-    { id:'T2', name:'Train 2', route:'B-C', departure_time:'10:00', arrival_time:'10:40', capacity:280, delay_minutes:3 }
-  ]);
-}
-function disruptions() {
-  return json([
-    { id:'D1', type:'signal', severity:'low', affected_trains:['T1'], affected_stations:['Station B'], start_time:new Date().toISOString(), description:'Signal check' }
-  ]);
-}
-function alerts() {
-  return json([
-    { id:'A1', train:'T1', level:'info', message:'Minor delay cleared' }
+  // must be Train[]
+  return j([
+    {
+      id: 'T1',
+      name: 'Train 1',
+      route: 'A-B',
+      departure_time: '09:00',
+      arrival_time: '09:30',
+      capacity: 300,
+      delay_minutes: 0,
+    },
+    {
+      id: 'T2',
+      name: 'Train 2',
+      route: 'B-C',
+      departure_time: '10:00',
+      arrival_time: '10:40',
+      capacity: 280,
+      delay_minutes: 3,
+    },
   ]);
 }
 
-// objects
-function trainsCount() { return json({ total_active_trains: 2, timestamp: new Date().toISOString() }); }
-function kpiData() {
-  return json({
+function disruptions() {
+  // must be Disruption[]
+  return j([
+    {
+      id: 'D1',
+      type: 'signal',
+      severity: 'low',
+      affected_trains: ['T1'],
+      affected_stations: ['Station B'],
+      start_time: new Date().toISOString(),
+      description: 'Signal check',
+    },
+  ]);
+}
+
+function alerts() {
+  // must be Alert[]
+  return j([{ id: 'A1', train: 'T1', level: 'info', message: 'Minor delay cleared' }]);
+}
+
+// ---------- objects (not arrays) ----------
+function health() {
+  return j({ ok: true });
+}
+
+function trainsCount() {
+  return j({ total_active_trains: 2, timestamp: new Date().toISOString() });
+}
+
+function kpi() {
+  return j({
     on_time_percentage: 96.2,
     avg_delay_minutes: 2.4,
     incidents_today: 1,
     network_load: 0.54,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
+
 function trainById(id: string) {
-  return json({ id, name:`Train ${id}`, route:'A-B', departure_time:'09:00', arrival_time:'09:30', capacity:300, delay_minutes:0 });
+  return j({
+    id,
+    name: `Train ${id}`,
+    route: 'A-B',
+    departure_time: '09:00',
+    arrival_time: '09:30',
+    capacity: 300,
+    delay_minutes: 0,
+  });
 }
+
 async function optimize(req: NextRequest) {
   let payload: any = {};
-  try { const t = await req.text(); payload = t ? JSON.parse(t) : {}; } catch {}
-  return json({ optimized:true, message:'Schedule optimized (stub)', input: payload, result:{ objective:'min_delay', improvement_pct:12.3 } });
+  try {
+    const t = await req.text();
+    payload = t ? JSON.parse(t) : {};
+  } catch {
+    payload = {};
+  }
+  return j({
+    optimized: true,
+    message: 'Schedule optimized (stub)',
+    input: payload,
+    result: { objective: 'min_delay', improvement_pct: 12.3 },
+  });
 }
 
-async function route(req: NextRequest) {
+// ---------- debug endpoint to verify shapes quickly ----------
+function debug() {
+  return j({
+    endpoints: {
+      '/api/stations': 'string[]',
+      '/api/trains': 'Train[]',
+      '/api/trains/count': '{ total_active_trains: number }',
+      '/api/disruptions': 'Disruption[]',
+      '/api/alerts': 'Alert[]',
+      '/api/kpi': 'object',
+      '/api/train/:id': 'Train',
+      '/api/optimize (POST)': 'object',
+      '/api/health': '{ ok: true }',
+    },
+  });
+}
+
+// ---------- tiny router ----------
+async function router(req: NextRequest) {
   const segs = req.nextUrl.pathname.replace(/^\/api\/?/, '').split('/').filter(Boolean);
-  // root & health
-  if (segs.length === 0) return root();
-  if (segs[0] === 'health' && segs.length === 1) return health();
 
-  // trains
-  if (segs[0] === 'trains' && segs.length === 1 && req.method === 'GET') return trainsList(); // /api/trains
-  if (segs[0] === 'trains' && segs[1] === 'count') return trainsCount();                       // /api/trains/count
-  if (segs[0] === 'trains' && segs.length === 2) return trainById(segs[1]);                   // /api/trains/:id
+  if (segs.length === 0) return j({ ok: true, service: 'railoptima' });
+  if (segs[0] === 'health') return health();
+  if (segs[0] === 'debug') return debug();
 
-  // arrays
-  if (segs[0] === 'stations')     return stations();      // returns string[]
-  if (segs[0] === 'disruptions')  return disruptions();   // returns Disruption[]
-  if (segs[0] === 'alerts')       return alerts();        // returns Alert[]
+  if (segs[0] === 'stations') return stations();
+  if (segs[0] === 'trains' && segs.length === 1 && req.method === 'GET') return trainsList();
+  if (segs[0] === 'trains' && segs[1] === 'count') return trainsCount();
+  if (segs[0] === 'train' && segs.length === 2) return trainById(segs[1]);
 
-  // objects
-  if (segs[0] === 'kpi')          return kpiData();
+  if (segs[0] === 'disruptions') return disruptions();
+  if (segs[0] === 'alerts') return alerts();
+  if (segs[0] === 'kpi') return kpi();
 
-  // optimize (POST/PUT/PATCH supported)
-  if (segs[0] === 'optimize')     return optimize(req);
+  if (segs[0] === 'optimize') return optimize(req);
 
-  return json({ error: 'Not Found' }, 404);
+  return j({ error: 'Not Found' }, 404);
 }
 
-export async function GET(req: NextRequest)   { return route(req); }
-export async function POST(req: NextRequest)  { return route(req); }
-export async function PUT(req: NextRequest)   { return route(req); }
-export async function PATCH(req: NextRequest) { return route(req); }
-export async function DELETE()                { return methodNotAllowed(); }
+export async function GET(req: NextRequest) {
+  return router(req);
+}
+export async function POST(req: NextRequest) {
+  return router(req);
+}
+export async function PUT(req: NextRequest) {
+  return router(req);
+}
+export async function PATCH(req: NextRequest) {
+  return router(req);
+}
+export async function DELETE() {
+  return j({ error: 'Method Not Allowed' }, 405);
+}
 export async function OPTIONS() {
-  return new NextResponse(null, { status: 200, headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  }});
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
 }
