@@ -30,7 +30,12 @@ app = FastAPI(
 # Add CORS middleware - configured for same domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://sihh.netlify.app", "http://localhost:3000", "http://localhost:9002"],
+    allow_origins=[
+        "https://<YOUR-VERCEL-PROJECT>.vercel.app",   # add this
+        "http://localhost:3000",
+        "http://localhost:9002",
+        "https://sihh.netlify.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
