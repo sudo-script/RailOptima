@@ -1,54 +1,196 @@
-// SIHH-main/src/app/api/[...path]/route.ts
+// Next.js App Router API that implements your stub backend directly on Vercel
 import { NextRequest, NextResponse } from 'next/server';
-export const runtime = 'nodejs';
 
-const API_BASE_URL = process.env.API_BASE_URL;
+export const runtime = 'nodejs';           // Serverless (Node) runtime
+export const dynamic = 'force-dynamic';    // never cache
 
-async function handleRequest(req: NextRequest, path: string[], method: string) {
-  if (!API_BASE_URL) {
-    return NextResponse.json({ error: 'API_BASE_URL is not set on the server' }, { status: 500 });
+type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
+
+function json(data: Json, status = 200) {
+  return NextResponse.json(data, { status });
+}
+
+function notFound(msg = 'Not Found') {
+  return json({ error: msg }, 404);
+}
+
+function methodNotAllowed() {
+  return json({ error: 'Method Not Allowed' }, 405);
+}
+
+// ---- Handlers for each stub route ----
+function handleRoot() {
+  return json({ ok: true, service: 'railoptima', paths: ['/health', '/api/health'] });
+}
+
+function handleHealth() {
+  return json({ ok: true });
+}
+
+function handleStatus() {
+  return json({ status: 'API stub running' });
+}
+
+function handleEcho(req: NextRequest) {
+  const msg = new URL(req.url).searchParams.get('msg') ?? 'hi';
+  return json({ echo: msg });
+}
+
+function handleStations() {
+  return json({ stations: ['Station A', 'Station B', 'Station C'] });
+}
+
+function handleTrains() {
+  return json({ trains: ['Train 1', 'Train 2', 'Train 3'] });
+}
+
+function handleTrain(trainId: string) {
+  return json({ train_id: trainId, status: 'on-time', location: 'Station A' });
+}
+
+function handleSchedule(trainId: string) {
+  return json({
+    train_id: trainId,
+    schedule: [
+      { station: 'Station A', time: '09:00' },
+      { station: 'Station B', time: '09:30' },
+    ],
+  });
+}
+
+async function handleOptimizeSchedule(req: NextRequest) {
+  const url = new URL(req.url);
+  // Accept trains from query (?trains=Train%201&trains=Train%202) or from JSON body
+  const trainsFromQuery = url.searchParams.getAll('trains');
+  let trains = trainsFromQuery.length ? trainsFromQuery : undefined;
+
+  if (!trains && (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')) {
+    try {
+      const bodyText = await req.text();
+      if (bodyText) {
+        const parsed = JSON.parse(bodyText);
+        if (Array.isArray(parsed?.trains)) trains = parsed.trains;
+      }
+    } catch {
+      /* ignore */
+    }
   }
 
-  const url = `${API_BASE_URL}/${path.join('/')}${req.nextUrl.search}`;
-  const init: RequestInit = {
-    method,
-    headers: { 'Content-Type': 'application/json' },
-    body: method === 'GET' || method === 'HEAD' ? undefined : await req.text(),
-  };
+  return json({
+    optimized: true,
+    trains: trains ?? ['Train 1', 'Train 2'],
+    message: 'Schedule optimized successfully (stub).',
+  });
+}
 
+function handleAlerts() {
+  return json({
+    alerts: [
+      { train: 'Train 1', message: 'Minor delay' },
+      { train: 'Train 2', message: 'On time' },
+    ],
+  });
+}
+
+async function handleGetUserPrefs(userId: string) {
+  return json({ user_id: userId, preferences: { theme: 'dark', notifications: true } });
+}
+
+async function handleSetUserPrefs(userId: string, req: NextRequest) {
+  let prefs: any = {};
   try {
-    const r = await fetch(url, init);
-    const body = await r.text();
-    return new NextResponse(body, {
-      status: r.status,
-      headers: { 'content-type': r.headers.get('content-type') ?? 'application/json' },
-    });
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: 'Upstream API unreachable', detail: String(err?.message ?? err) },
-      { status: 502 },
-    );
-  }
+    const txt = await req.text();
+    if (txt) prefs = JSON.parse(txt);
+  } catch {/* ignore */}
+  return json({ user_id: userId, updated_preferences: prefs });
 }
 
-export async function GET(req: NextRequest, { params }: { params: { path: string[] } }) {
-  return handleRequest(req, params.path, 'GET');
+// ---- Router ----
+async function router(req: NextRequest) {
+  // path segments after /api/
+  const segments = req.nextUrl.pathname.replace(/^\/api\/?/, '').split('/').filter(Boolean);
+
+  // Support both "/" and "/health" and "/api/health"
+  if (segments.length === 0) {
+    return handleRoot();
+  }
+  if (segments.length === 1 && segments[0] === 'health') {
+    return handleHealth();
+  }
+  if (segments.length === 1 && segments[0] === 'status') {
+    return handleStatus();
+  }
+  if (segments.length === 1 && segments[0] === 'echo') {
+    return handleEcho(req);
+  }
+  if (segments.length === 1 && segments[0] === 'stations') {
+    return handleStations();
+  }
+  if (segments.length === 1 && segments[0] === 'trains') {
+    return handleTrains();
+  }
+  if (segments.length === 2 && segments[0] === 'train') {
+    return handleTrain(segments[1]);
+  }
+  if (segments.length === 2 && segments[0] === 'schedule') {
+    return handleSchedule(segments[1]);
+  }
+  if (
+    segments.length === 2 &&
+    segments[0] === 'users' &&
+    segments[1] &&
+    req.method === 'GET'
+  ) {
+    return handleGetUserPrefs(segments[1]);
+  }
+  if (
+    segments.length === 3 &&
+    segments[0] === 'users' &&
+    segments[2] === 'preferences' &&
+    req.method === 'GET'
+  ) {
+    return handleGetUserPrefs(segments[1]);
+  }
+  if (
+    segments.length === 3 &&
+    segments[0] === 'users' &&
+    segments[2] === 'preferences' &&
+    (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')
+  ) {
+    return handleSetUserPrefs(segments[1], req);
+  }
+  if (segments.length === 2 && segments[0] === 'optimize' && segments[1] === 'schedule') {
+    return handleOptimizeSchedule(req);
+  }
+  if (segments.length === 1 && segments[0] === 'alerts') {
+    return handleAlerts();
+  }
+
+  return notFound();
 }
-export async function POST(req: NextRequest, { params }: { params: { path: string[] } }) {
-  return handleRequest(req, params.path, 'POST');
+
+// ---- HTTP methods ----
+export async function GET(req: NextRequest, ctx: { params: { path: string[] } }) {
+  return router(req);
 }
-export async function PUT(req: NextRequest, { params }: { params: { path: string[] } }) {
-  return handleRequest(req, params.path, 'PUT');
+export async function POST(req: NextRequest, ctx: { params: { path: string[] } }) {
+  return router(req);
 }
-export async function DELETE(req: NextRequest, { params }: { params: { path: string[] } }) {
-  return handleRequest(req, params.path, 'DELETE');
+export async function PUT(req: NextRequest, ctx: { params: { path: string[] } }) {
+  return router(req);
+}
+export async function PATCH(req: NextRequest, ctx: { params: { path: string[] } }) {
+  return router(req);
+}
+export async function DELETE() {
+  return methodNotAllowed();
 }
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
   });
