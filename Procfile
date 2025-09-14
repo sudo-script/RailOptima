@@ -1,1 +1,1 @@
-web: uvicorn support.api_support.api_stub:app --host 0.0.0.0 --port $PORT
+web: uvicorn --app-dir support/api_support api_stub:app --host 0.0.0.0 --port $PORT
