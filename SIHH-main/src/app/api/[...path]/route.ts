@@ -11,24 +11,8 @@ const j = (data: any, status = 200) =>
 
 /* -------------------- stub data -------------------- */
 const TRAINS = [
-  {
-    id: 'T1',
-    name: 'Train 1',
-    route: 'A-B',
-    departure_time: '09:00',
-    arrival_time: '09:30',
-    capacity: 300,
-    delay_minutes: 0,
-  },
-  {
-    id: 'T2',
-    name: 'Train 2',
-    route: 'B-C',
-    departure_time: '10:00',
-    arrival_time: '10:40',
-    capacity: 280,
-    delay_minutes: 3,
-  },
+  { id: 'T1', name: 'Train 1', route: 'A-B', departure_time: '09:00', arrival_time: '09:30', capacity: 300, delay_minutes: 0 },
+  { id: 'T2', name: 'Train 2', route: 'B-C', departure_time: '10:00', arrival_time: '10:40', capacity: 280, delay_minutes: 3 },
 ];
 
 /* -------------------- json endpoints -------------------- */
@@ -43,9 +27,7 @@ function trainById(id: string) {
   return j(t);
 }
 function disruptions() {
-  return j([
-    { id:'D1', type:'signal', severity:'low', affected_trains:['T1'], affected_stations:['Station B'], start_time:new Date().toISOString(), description:'Signal check' }
-  ]);
+  return j([{ id:'D1', type:'signal', severity:'low', affected_trains:['T1'], affected_stations:['Station B'], start_time:new Date().toISOString(), description:'Signal check' }]);
 }
 function alerts() { return j([{ id:'A1', train:'T1', level:'info', message:'Minor delay cleared' }]); }
 function kpi() {
@@ -57,9 +39,10 @@ async function optimize(req: NextRequest) {
   return j({ optimized:true, message:'Schedule optimized (stub)', input: payload, result:{ objective:'min_delay', improvement_pct:12.3 } });
 }
 
-/* -------------------- CSV endpoint -------------------- */
-// GET /api/trains/csv  -> text/csv download
-function trainsCsv() {
+/* -------------------- CSV endpoint with content negotiation -------------------- */
+// If it's a real navigation/download (or ?download=1), return CSV.
+// If it's a fetch/XHR (most components do res.json()), return JSON instead.
+function trainsCsv(req: NextRequest) {
   const headers = ['id','name','route','departure_time','arrival_time','capacity','delay_minutes'];
   const lines = [
     headers.join(','),
@@ -69,13 +52,29 @@ function trainsCsv() {
   ];
   const csv = lines.join('\n');
 
-  return new NextResponse(csv, {
-    status: 200,
-    headers: {
-      'content-type': 'text/csv; charset=utf-8',
-      'content-disposition': 'attachment; filename="trains.csv"',
-      'cache-control': 'no-store',
-    },
+  const dest   = req.headers.get('sec-fetch-dest') || '';
+  const accept = req.headers.get('accept') || '';
+  const dl     = req.nextUrl.searchParams.get('download') === '1';
+
+  const isNavigation = dest === 'document' || accept.includes('text/html');
+  if (isNavigation || dl) {
+    // real download
+    return new NextResponse(csv, {
+      status: 200,
+      headers: {
+        'content-type': 'text/csv; charset=utf-8',
+        'content-disposition': 'attachment; filename="trains.csv"',
+        'cache-control': 'no-store',
+      },
+    });
+  }
+
+  // JSON for XHR/fetch — prevents "not valid JSON" errors in the console
+  // Choose the format your UI expects; here we return rows as array of objects:
+  return j({
+    format: 'csv',
+    rows: TRAINS,
+    headers
   });
 }
 
@@ -89,7 +88,7 @@ async function router(req: NextRequest) {
   // trains
   if (segs[0] === 'trains' && segs.length === 1 && req.method === 'GET') return trainsList();
   if (segs[0] === 'trains' && segs[1] === 'count') return trainsCount();
-  if (segs[0] === 'trains' && segs[1] === 'csv') return trainsCsv();        // <--- NEW
+  if (segs[0] === 'trains' && segs[1] === 'csv') return trainsCsv(req);    // <--- updated
   if (segs[0] === 'train'  && segs.length === 2) return trainById(segs[1]);
 
   // others
