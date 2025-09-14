@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # API Backend Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: railoptima-api
+    ports:
+      - "8000:8000"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DEBUG=false
+      - ENVIRONMENT=production
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend-builder
+    container_name: railoptima-frontend
+    ports:
+      - "9002:9002"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NODE_ENV=production
+    depends_on:
+      - api
+    restart: unless-stopped
+    command: ["npm", "start"]
+
+  # Development version with hot reload
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: railoptima-dev
+    ports:
+      - "8000:8000"
+      - "9002:9002"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - FRONTEND_PORT=9002
+      - DEBUG=true
+      - ENVIRONMENT=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/venv
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  # Database (if needed in the future)
+  # database:
+  #   image: postgres:15-alpine
+  #   container_name: railoptima-db
+  #   environment:
+  #     - POSTGRES_DB=railoptima
+  #     - POSTGRES_USER=railoptima
+  #     - POSTGRES_PASSWORD=railoptima_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+
+  # Monitoring (optional)
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: railoptima-prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+  #   restart: unless-stopped
+  #   profiles:
+  #     - monitoring
+
+volumes:
+  postgres_data:

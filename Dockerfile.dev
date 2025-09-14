@@ -1,0 +1,66 @@
+# Development Dockerfile for RailOptima
+# This creates a development environment with hot reload
+
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# Set work directory
+WORKDIR /app
+
+# Copy Python requirements
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy frontend package files
+COPY SIHH-main/package*.json ./SIHH-main/
+
+# Install frontend dependencies
+WORKDIR /app/SIHH-main
+RUN npm install
+
+# Go back to app root
+WORKDIR /app
+
+# Copy all source code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p logs data temp reports
+
+# Create startup script
+RUN echo '#!/bin/bash\n\
+echo "Starting RailOptima Development Environment..."\n\
+echo "Starting API Backend..."\n\
+cd /app/support/api_support && python api_stub.py &\n\
+echo "Waiting for API to start..."\n\
+sleep 5\n\
+echo "Starting Frontend..."\n\
+cd /app/SIHH-main && npm run dev &\n\
+echo "Both services started!"\n\
+echo "API: http://localhost:8000"\n\
+echo "Frontend: http://localhost:9002"\n\
+wait' > /app/start-dev.sh && chmod +x /app/start-dev.sh
+
+# Expose ports
+EXPOSE 8000 9002
+
+# Start development environment
+CMD ["/app/start-dev.sh"]

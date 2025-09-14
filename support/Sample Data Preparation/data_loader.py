@@ -17,9 +17,15 @@ logger = logging.getLogger(__name__)
 class DataLoader:
     """Loads railway data from various file formats"""
     
-    def __init__(self, data_dir: str = "support/Sample Data Preparation"):
-        self.data_dir = data_dir
-        self.scenarios_dir = os.path.join(data_dir, "scenarios")
+    def __init__(self, data_dir: str = None):
+        if data_dir is None:
+            # Get the directory where this script is located
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            self.data_dir = script_dir
+        else:
+            self.data_dir = data_dir
+        self.demo_dir = os.path.join(self.data_dir, "demo")
+        self.scenarios_dir = os.path.join(self.data_dir, "scenarios")
         
     def load_from_json(self, filename: str, scenario: Optional[str] = None) -> List[Dict[str, Any]]:
         """Load data from JSON file"""
@@ -77,7 +83,10 @@ class DataLoader:
         if scenario:
             filepath = os.path.join(self.scenarios_dir, scenario, filename)
         else:
-            filepath = os.path.join(self.data_dir, filename)
+            # Try demo directory first, then main directory
+            filepath = os.path.join(self.demo_dir, filename)
+            if not os.path.exists(filepath):
+                filepath = os.path.join(self.data_dir, filename)
         
         if not os.path.exists(filepath):
             logger.error(f"Combined data file not found: {filepath}")

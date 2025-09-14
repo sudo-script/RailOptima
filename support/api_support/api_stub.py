@@ -1,27 +1,20 @@
 """
-RailOptima API Stub - Mock API endpoints for railway management system
-This module provides FastAPI endpoints for testing and development purposes.
+RailOptima API - Integrated with Next.js frontend
+This is a copy of the main API with CORS configured for same-domain deployment
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 import random
+import pandas as pd
 import asyncio
 import logging
 import os
 import sys
-
-# Add the support directory to the path to import data loader
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-try:
-    from Sample_Data_Preparation.data_loader import load_sample_data, get_available_scenarios, reload_data
-except ImportError:
-    # Fallback for different path structures
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Sample Data Preparation'))
-    from data_loader import load_sample_data, get_available_scenarios, reload_data
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -34,10 +27,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add CORS middleware
+# Add CORS middleware - configured for same domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://sihh.netlify.app", "http://localhost:3000", "http://localhost:9002"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,13 +41,16 @@ class Train(BaseModel):
     id: str
     name: str
     route: str
-    departure_time: datetime
-    arrival_time: datetime
+    departure_time: str
+    arrival_time: str
     status: str = "scheduled"
     priority: int = Field(ge=1, le=5, description="Priority level 1-5")
     capacity: int = Field(gt=0, description="Passenger capacity")
     current_station: Optional[str] = None
     delay_minutes: int = 0
+    progress: int = 0
+    passengers: int = 0
+    nextStop: str = "Next Station"
 
 class Station(BaseModel):
     id: str
@@ -69,7 +65,7 @@ class Infrastructure(BaseModel):
     type: str  # "track", "signal", "bridge", "tunnel"
     status: str = "operational"
     location: Dict[str, float]
-    maintenance_due: Optional[datetime] = None
+    maintenance_due: Optional[str] = None
     capacity: Optional[int] = None
 
 class Disruption(BaseModel):
@@ -78,8 +74,8 @@ class Disruption(BaseModel):
     severity: str  # "low", "medium", "high", "critical"
     affected_trains: List[str]
     affected_stations: List[str]
-    start_time: datetime
-    estimated_end_time: Optional[datetime] = None
+    start_time: str
+    estimated_end_time: Optional[str] = None
     description: str
 
 class OptimizationRequest(BaseModel):
@@ -94,90 +90,189 @@ class OptimizationResponse(BaseModel):
     optimization_time: float
     status: str
 
-# Mock data storage
-trains_db: List[Train] = []
-stations_db: List[Station] = []
-infrastructure_db: List[Infrastructure] = []
-disruptions_db: List[Disruption] = []
-current_scenario: Optional[str] = None
-
-# Initialize with sample data
-def initialize_sample_data(scenario: Optional[str] = None):
-    """Initialize the API with sample railway data from files"""
-    global trains_db, stations_db, infrastructure_db, disruptions_db, current_scenario
-    
+def load_trains_from_csv() -> List[Dict[str, Any]]:
     try:
-        # Load data from files
-        sample_data = load_sample_data(scenario)
-        current_scenario = scenario
-        
-        # Convert to Pydantic models
-        trains_db = [Train(**train_data) for train_data in sample_data.get("trains", [])]
-        stations_db = [Station(**station_data) for station_data in sample_data.get("stations", [])]
-        infrastructure_db = [Infrastructure(**infra_data) for infra_data in sample_data.get("infrastructure", [])]
-        disruptions_db = [Disruption(**disruption_data) for disruption_data in sample_data.get("disruptions", [])]
-        
-        logger.info(f"Initialized API with {len(trains_db)} trains, {len(stations_db)} stations, "
-                   f"{len(infrastructure_db)} infrastructure components, {len(disruptions_db)} disruptions")
-        if scenario:
-            logger.info(f"Using scenario: {scenario}")
-            
-    except Exception as e:
-        logger.error(f"Error loading sample data: {e}")
-        # Fallback to minimal data
-        trains_db = []
-        stations_db = []
-        infrastructure_db = []
-        disruptions_db = []
-        logger.warning("Using empty datasets due to loading error")
+        csv_path = os.path.join(os.path.dirname(__file__), "..", "..", "Audit", "TestData", "human_decision_schedule.csv")
+        if not os.path.exists(csv_path):
+            logger.error(f"CSV file not found at {csv_path}")
+            return []
 
-def reload_sample_data(scenario: Optional[str] = None):
-    """Reload sample data from files"""
-    logger.info(f"Reloading sample data{' for scenario: ' + scenario if scenario else ''}")
-    initialize_sample_data(scenario)
+        df = pd.read_csv(csv_path)
+        today = datetime.now().date()
+        trains = []
+
+        for _, row in df.iterrows():
+            # Times
+            departure_time = datetime.combine(today, datetime.strptime(row["scheduled_departure"], "%H:%M").time())
+            arrival_time = datetime.combine(today, datetime.strptime(row["optimized_departure"], "%H:%M").time())
+
+            # Delay & status
+            delay = int(row["delay_min"])
+            if delay == 0:
+                status = "On Time"
+            elif delay < 15:
+                status = "At Risk"
+            else:
+                status = f"Delayed ({delay} min)"
+
+            # Progress = how much of journey completed (mocked for now)
+            total_journey = (arrival_time - departure_time).total_seconds()
+            elapsed = (datetime.now() - departure_time).total_seconds()
+            progress = max(0, min(100, int((elapsed / total_journey) * 100))) if total_journey > 0 else 0
+
+            trains.append({
+                "id": str(row["train_id"]),
+                "name": f"Train {row['train_id']}",
+                "route": f"Station A → Station B",   # TODO: real start/end from your data
+                "departure_time": departure_time.isoformat(),
+                "arrival_time": arrival_time.isoformat(),
+                "status": status,
+                "priority": int(row["priority"]),
+                "capacity": 500,
+                "delay_minutes": delay,
+                "progress": progress,
+                "passengers": random.randint(100, 400),
+                "nextStop": f"S{random.randint(1, 5):03d}",
+                "current_station": f"S{random.randint(1, 5):03d}"
+            })
+
+        return trains
+    except Exception as e:
+        logger.error(f"Error loading CSV trains: {e}")
+        return []
+
+def load_conflict_report_data() -> List[Dict[str, Any]]:
+    """Load data from conflict_report.csv for KPI calculations"""
+    try:
+        csv_path = os.path.join(os.path.dirname(__file__), "..", "..", "optimizer", "conflict_report.csv")
+        if not os.path.exists(csv_path):
+            logger.error(f"Conflict report CSV file not found at {csv_path}")
+            return []
+
+        df = pd.read_csv(csv_path)
+        return df.to_dict('records')
+    except Exception as e:
+        logger.error(f"Error loading conflict report data: {e}")
+        return []
+
+
+# Mock data storage - using the same data as your frontend
+trains_db: List[Train] = [
+    Train(
+        id="12951",
+        name="Rajdhani Express",
+        route="Mumbai Central to New Delhi",
+        departure_time=(datetime.now() + timedelta(hours=2)).isoformat(),
+        arrival_time=(datetime.now() + timedelta(hours=8)).isoformat(),
+        status="On Time",
+        priority=5,
+        capacity=750,
+        current_station="Surat",
+        delay_minutes=0,
+        progress=25,
+        passengers=650,
+        nextStop="Vadodara"
+    ),
+    Train(
+        id="22439",
+        name="Shatabdi Express",
+        route="New Delhi to Katra",
+        departure_time=(datetime.now() + timedelta(hours=1)).isoformat(),
+        arrival_time=(datetime.now() + timedelta(hours=6)).isoformat(),
+        status="At Risk",
+        priority=4,
+        capacity=600,
+        current_station="Ambala Cantt",
+        delay_minutes=10,
+        progress=40,
+        passengers=580,
+        nextStop="Jammu Tawi"
+    ),
+    Train(
+        id="12301",
+        name="Howrah Rajdhani",
+        route="Howrah to New Delhi",
+        departure_time=(datetime.now() - timedelta(hours=1)).isoformat(),
+        arrival_time=(datetime.now() + timedelta(hours=5)).isoformat(),
+        status="Delayed",
+        priority=5,
+        capacity=820,
+        current_station="Mughalsarai",
+        delay_minutes=45,
+        progress=60,
+        passengers=750,
+        nextStop="Allahabad"
+    ),
+    Train(
+        id="12002",
+        name="Bhopal Express",
+        route="New Delhi to Bhopal",
+        departure_time=(datetime.now() + timedelta(hours=3)).isoformat(),
+        arrival_time=(datetime.now() + timedelta(hours=9)).isoformat(),
+        status="On Time",
+        priority=3,
+        capacity=550,
+        current_station="Agra Cantt",
+        delay_minutes=0,
+        progress=15,
+        passengers=480,
+        nextStop="Gwalior"
+    )
+]
+
+stations_db: List[Station] = [
+    Station(id="MUM", name="Mumbai Central", location={"lat": 19.0176, "lng": 72.8562}, capacity=20, current_trains=5),
+    Station(id="DEL", name="New Delhi", location={"lat": 28.6448, "lng": 77.2167}, capacity=25, current_trains=8),
+    Station(id="HWH", name="Howrah", location={"lat": 22.5851, "lng": 88.3468}, capacity=15, current_trains=3),
+    Station(id="BPL", name="Bhopal", location={"lat": 23.2599, "lng": 77.4126}, capacity=12, current_trains=2),
+]
+
+disruptions_db: List[Disruption] = [
+    Disruption(
+        id="D001",
+        type="Signal Failure",
+        severity="High",
+        affected_trains=["12301", "22439"],
+        affected_stations=["GZB"],
+        start_time=(datetime.now() - timedelta(minutes=30)).isoformat(),
+        estimated_end_time=(datetime.now() + timedelta(minutes=45)).isoformat(),
+        description="Complete signal failure on lines 3 and 4. RRI team dispatched. ETA 45 mins."
+    ),
+    Disruption(
+        id="D002",
+        type="Track Blockage",
+        severity="Medium",
+        affected_trains=["12301"],
+        affected_stations=["ASN"],
+        start_time=(datetime.now() - timedelta(minutes=15)).isoformat(),
+        estimated_end_time=(datetime.now() + timedelta(minutes=30)).isoformat(),
+        description="Debris on track due to local construction work. Line clearing in progress."
+    ),
+    Disruption(
+        id="D003",
+        type="Passenger Incident",
+        severity="Low",
+        affected_trains=["12951"],
+        affected_stations=["NGP"],
+        start_time=(datetime.now() - timedelta(minutes=5)).isoformat(),
+        estimated_end_time=(datetime.now() + timedelta(minutes=20)).isoformat(),
+        description="Medical emergency reported in coach S5. Awaiting paramedic team."
+    )
+]
 
 # API Endpoints
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialize sample data on startup"""
-    initialize_sample_data()
-    logger.info("RailOptima API initialized with sample data")
-
 @app.get("/")
 async def root():
-    """Root endpoint with API information"""
-    return {
-        "message": "RailOptima API - Railway Traffic Management System",
-        "version": "1.0.0",
-        "status": "operational",
-        "current_scenario": current_scenario or "default",
-        "available_scenarios": get_available_scenarios(),
-        "endpoints": {
-            "trains": "/trains",
-            "stations": "/stations", 
-            "infrastructure": "/infrastructure",
-            "disruptions": "/disruptions",
-            "optimize": "/optimize",
-            "health": "/health",
-            "metrics": "/metrics",
-            "scenarios": "/scenarios",
-            "reload": "/reload"
-        }
-    }
+    """API root endpoint"""
+    return {"message": "RailOptima API is running", "version": "1.0.0"}
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint for monitoring"""
+    """Health check endpoint"""
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
-        "uptime": "operational",
-        "services": {
-            "database": "connected",
-            "optimization_engine": "ready",
-            "monitoring": "active"
-        }
+        "uptime": "operational"
     }
 
 # Train endpoints
@@ -185,6 +280,58 @@ async def health_check():
 async def get_trains():
     """Get all trains"""
     return trains_db
+
+@app.get("/trains/csv")
+async def get_csv_trains():
+    """Get train data from human_decision_schedule.csv"""
+    try:
+        # Path to the CSV file
+        csv_path = os.path.join(os.path.dirname(__file__), '..', '..', 'Audit', 'TestData', 'human_decision_schedule.csv')
+        
+        if not os.path.exists(csv_path):
+            raise HTTPException(status_code=404, detail="CSV file not found")
+        
+        # Read CSV data
+        df = pd.read_csv(csv_path)
+        
+        # Convert to API format
+        trains = []
+        for _, row in df.iterrows():
+            # Determine status based on current time and schedule
+            current_time = datetime.now().time()
+            scheduled_time = datetime.strptime(row['scheduled_departure'], '%H:%M').time()
+            optimized_time = datetime.strptime(row['optimized_departure'], '%H:%M').time()
+            
+            # Simple status logic based on time
+            if current_time < scheduled_time:
+                status = "scheduled"
+            elif current_time < optimized_time:
+                status = "departed"
+            else:
+                status = "arrived"
+            
+            train = {
+                "id": row['train_id'],
+                "name": f"Train {row['train_id']}",
+                "route": f"Route {row['train_id']}",  # You can customize this
+                "departure_time": f"2025-09-13T{row['scheduled_departure']}:00",
+                "arrival_time": f"2025-09-13T{row['optimized_departure']}:00",
+                "status": status,
+                "priority": int(row['priority']),
+                "capacity": random.randint(200, 500),  # Random capacity
+                "current_station": f"S{random.randint(1, 5):03d}",  # Random station
+                "delay_minutes": int(row['delay_min']),
+                "progress": random.randint(0, 100),  # Random progress
+                "passengers": random.randint(100, 400),  # Random passengers
+                "nextStop": f"S{random.randint(1, 5):03d}",  # Random next stop
+            }
+            trains.append(train)
+        
+        return trains
+        
+    except Exception as e:
+        logger.error(f"Error loading CSV data: {e}")
+        raise HTTPException(status_code=500, detail=f"Error loading CSV data: {str(e)}")
 
 @app.get("/trains/{train_id}", response_model=Train)
 async def get_train(train_id: str):
@@ -194,80 +341,50 @@ async def get_train(train_id: str):
         raise HTTPException(status_code=404, detail="Train not found")
     return train
 
-@app.post("/trains", response_model=Train)
-async def create_train(train: Train):
-    """Create a new train"""
-    trains_db.append(train)
-    logger.info(f"Created train {train.id}: {train.name}")
-    return train
-
-@app.put("/trains/{train_id}", response_model=Train)
-async def update_train(train_id: str, train_update: Train):
-    """Update train information"""
-    train_index = next((i for i, t in enumerate(trains_db) if t.id == train_id), None)
-    if train_index is None:
-        raise HTTPException(status_code=404, detail="Train not found")
-    
-    trains_db[train_index] = train_update
-    logger.info(f"Updated train {train_id}")
-    return train_update
-
-@app.delete("/trains/{train_id}")
-async def delete_train(train_id: str):
-    """Delete a train"""
-    train_index = next((i for i, t in enumerate(trains_db) if t.id == train_id), None)
-    if train_index is None:
-        raise HTTPException(status_code=404, detail="Train not found")
-    
-    deleted_train = trains_db.pop(train_index)
-    logger.info(f"Deleted train {train_id}: {deleted_train.name}")
-    return {"message": f"Train {train_id} deleted successfully"}
-
 # Station endpoints
 @app.get("/stations", response_model=List[Station])
 async def get_stations():
     """Get all stations"""
     return stations_db
 
-@app.get("/stations/{station_id}", response_model=Station)
-async def get_station(station_id: str):
-    """Get specific station by ID"""
-    station = next((s for s in stations_db if s.id == station_id), None)
-    if not station:
-        raise HTTPException(status_code=404, detail="Station not found")
-    return station
-
-@app.post("/stations", response_model=Station)
-async def create_station(station: Station):
-    """Create a new station"""
-    stations_db.append(station)
-    logger.info(f"Created station {station.id}: {station.name}")
-    return station
-
-# Infrastructure endpoints
-@app.get("/infrastructure", response_model=List[Infrastructure])
-async def get_infrastructure():
-    """Get all infrastructure components"""
-    return infrastructure_db
-
-@app.get("/infrastructure/{infra_id}", response_model=Infrastructure)
-async def get_infrastructure_item(infra_id: str):
-    """Get specific infrastructure component by ID"""
-    infra = next((i for i in infrastructure_db if i.id == infra_id), None)
-    if not infra:
-        raise HTTPException(status_code=404, detail="Infrastructure component not found")
-    return infra
-
-@app.put("/infrastructure/{infra_id}/status")
-async def update_infrastructure_status(infra_id: str, status: str):
-    """Update infrastructure status"""
-    infra = next((i for i in infrastructure_db if i.id == infra_id), None)
-    if not infra:
-        raise HTTPException(status_code=404, detail="Infrastructure component not found")
+# KPI endpoints
+@app.get("/kpi")
+async def get_kpi_data():
+    """Get KPI data for dashboard"""
+    # Use conflict report data for avg delay
+    conflict_data = load_conflict_report_data()
+    avg_delay = sum(t["delay_minutes"] for t in conflict_data) / len(conflict_data) if conflict_data else 0
     
-    infra.status = status
-    logger.info(f"Updated infrastructure {infra_id} status to {status}")
-    return {"message": f"Infrastructure {infra_id} status updated to {status}"}
+    # Use human_decision_schedule.csv for punctuality and decrease by 5%
+    csv_trains = load_trains_from_csv()
+    total_trains = len(csv_trains)
+    on_time_trains = len([t for t in csv_trains if t["delay_minutes"] == 0])
+    punctuality = (on_time_trains / total_trains * 100) if total_trains > 0 else 0
+    # Decrease punctuality by 5%
+    punctuality = max(0, punctuality - 5)
+    
+    return {
+        "punctuality": {
+            "value": round(punctuality, 1),
+            "target": 95.0,
+            "trend": -0.5
+        },
+        "avgDelay": {
+            "value": round(avg_delay, 1),
+            "target": "<5 min",
+            "trend": 1.2
+        },
+        "activeTrains": {
+            "value": total_trains,
+            "capacity": 600,
+            "trend": 12
+        },
+        "disruptions": {
+            "value": len(disruptions_db),
+            "last24h": 25,
+            "trend": 2
+        }
+    }
 
 # Disruption endpoints
 @app.get("/disruptions", response_model=List[Disruption])
@@ -281,17 +398,6 @@ async def create_disruption(disruption: Disruption):
     disruptions_db.append(disruption)
     logger.warning(f"New disruption reported: {disruption.type} - {disruption.description}")
     return disruption
-
-@app.put("/disruptions/{disruption_id}/resolve")
-async def resolve_disruption(disruption_id: str):
-    """Mark disruption as resolved"""
-    disruption = next((d for d in disruptions_db if d.id == disruption_id), None)
-    if not disruption:
-        raise HTTPException(status_code=404, detail="Disruption not found")
-    
-    disruption.estimated_end_time = datetime.now()
-    logger.info(f"Disruption {disruption_id} marked as resolved")
-    return {"message": f"Disruption {disruption_id} resolved"}
 
 # Optimization endpoint
 @app.post("/optimize", response_model=OptimizationResponse)
@@ -318,144 +424,16 @@ async def optimize_schedule(request: OptimizationRequest, background_tasks: Back
     response = OptimizationResponse(
         optimized_trains=optimized_trains,
         conflicts_resolved=conflicts_resolved,
+        
+        
         total_delay_reduction=total_delay_reduction,
         optimization_time=optimization_time,
         status="completed"
     )
     
-    # Log optimization in background
-    background_tasks.add_task(log_optimization, request, response)
-    
     logger.info(f"Schedule optimization completed: {conflicts_resolved} conflicts resolved, {total_delay_reduction} minutes saved")
     return response
 
-async def log_optimization(request: OptimizationRequest, response: OptimizationResponse):
-    """Background task to log optimization results"""
-    log_entry = {
-        "timestamp": datetime.now().isoformat(),
-        "trains_optimized": len(request.trains),
-        "conflicts_resolved": response.conflicts_resolved,
-        "delay_reduction": response.total_delay_reduction,
-        "optimization_time": response.optimization_time
-    }
-    logger.info(f"Optimization logged: {log_entry}")
-
-# Metrics endpoint for monitoring
-@app.get("/metrics")
-async def get_metrics():
-    """Get system metrics for monitoring"""
-    return {
-        "timestamp": datetime.now().isoformat(),
-        "trains": {
-            "total": len(trains_db),
-            "on_time": len([t for t in trains_db if t.delay_minutes == 0]),
-            "delayed": len([t for t in trains_db if t.delay_minutes > 0]),
-            "average_delay": sum(t.delay_minutes for t in trains_db) / len(trains_db) if trains_db else 0
-        },
-        "stations": {
-            "total": len(stations_db),
-            "operational": len([s for s in stations_db if s.status == "operational"]),
-            "capacity_utilization": sum(s.current_trains / s.capacity for s in stations_db) / len(stations_db) if stations_db else 0
-        },
-        "infrastructure": {
-            "total": len(infrastructure_db),
-            "operational": len([i for i in infrastructure_db if i.status == "operational"]),
-            "maintenance_due": len([i for i in infrastructure_db if i.maintenance_due and i.maintenance_due <= datetime.now() + timedelta(days=7)])
-        },
-        "disruptions": {
-            "active": len(disruptions_db),
-            "critical": len([d for d in disruptions_db if d.severity == "critical"]),
-            "high": len([d for d in disruptions_db if d.severity == "high"])
-        }
-    }
-
-# Error simulation endpoints for testing
-@app.post("/simulate/error")
-async def simulate_error():
-    """Simulate an API error for testing"""
-    raise HTTPException(status_code=500, detail="Simulated server error")
-
-@app.post("/simulate/timeout")
-async def simulate_timeout():
-    """Simulate a timeout for testing"""
-    await asyncio.sleep(15)  # Longer than typical timeout
-    return {"message": "This should timeout"}
-
-@app.post("/simulate/slow")
-async def simulate_slow_response():
-    """Simulate a slow response for latency testing"""
-    await asyncio.sleep(random.uniform(2, 5))
-    return {"message": "Slow response completed"}
-
-# Scenario management endpoints
-@app.get("/scenarios")
-async def get_scenarios():
-    """Get available scenarios"""
-    scenarios = get_available_scenarios()
-    return {
-        "available_scenarios": scenarios,
-        "current_scenario": current_scenario or "default",
-        "scenario_count": len(scenarios)
-    }
-
-@app.post("/scenarios/{scenario_name}/load")
-async def load_scenario(scenario_name: str):
-    """Load a specific scenario"""
-    available_scenarios = get_available_scenarios()
-    
-    if scenario_name not in available_scenarios and scenario_name != "default":
-        raise HTTPException(status_code=404, detail=f"Scenario '{scenario_name}' not found")
-    
-    try:
-        reload_sample_data(scenario_name if scenario_name != "default" else None)
-        return {
-            "message": f"Scenario '{scenario_name}' loaded successfully",
-            "current_scenario": current_scenario or "default",
-            "data_counts": {
-                "trains": len(trains_db),
-                "stations": len(stations_db),
-                "infrastructure": len(infrastructure_db),
-                "disruptions": len(disruptions_db)
-            }
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error loading scenario: {str(e)}")
-
-@app.post("/reload")
-async def reload_data_endpoint(scenario: Optional[str] = Query(None, description="Scenario to reload")):
-    """Reload data from files"""
-    try:
-        reload_sample_data(scenario)
-        return {
-            "message": f"Data reloaded successfully{' for scenario: ' + scenario if scenario else ''}",
-            "current_scenario": current_scenario or "default",
-            "data_counts": {
-                "trains": len(trains_db),
-                "stations": len(stations_db),
-                "infrastructure": len(infrastructure_db),
-                "disruptions": len(disruptions_db)
-            }
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error reloading data: {str(e)}")
-
-@app.get("/data/summary")
-async def get_data_summary():
-    """Get summary of current data"""
-    return {
-        "current_scenario": current_scenario or "default",
-        "data_counts": {
-            "trains": len(trains_db),
-            "stations": len(stations_db),
-            "infrastructure": len(infrastructure_db),
-            "disruptions": len(disruptions_db)
-        },
-        "train_types": list(set(train.train_type for train in trains_db if hasattr(train, 'train_type'))),
-        "station_types": list(set(station.station_type for station in stations_db if hasattr(station, 'station_type'))),
-        "infrastructure_types": list(set(infra.type for infra in infrastructure_db)),
-        "disruption_types": list(set(disruption.type for disruption in disruptions_db))
-    }
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
+    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
